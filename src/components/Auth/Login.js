@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Form from '../../styled/Form';
 import styled from 'styled-components';
-
 const FormContainer = styled.div`margin: 0 20rem;`;
 
 const ordinary = {
@@ -16,47 +15,31 @@ const superUser = {
 //======================
 //======================
 class Login extends Component {
-	state = {
-		username: '',
-		password: ''
-	};
-	handleChange = (e) => {
-		const { name, value } = e.target;
-		this.setState({ [name]: value });
-	};
 	//==============================
 	// testing hard-coded
 	//===============================
-	handleLogin = () => {
-		if (this.state.username === 'ordinary') {
-			this.props.setUser(ordinary);
-			window.location.href = '/';
-		} else if (this.state.username === 'super') {
-			this.props.setUser(superUser);
-			window.location.href = '/';
-		}
+	handleLogin = (event) => {
+		event.preventDefault();
+		const email = this.refs.email.value;
+		const password = this.refs.password.value;
+
+		this.props.loginUser({ email, password }).then((data) => {
+			if (data.errorCode) {
+				this.props.showToast('error', data.errorMessage);
+			} else {
+				const uid = data.user.uid;
+				this.props.fetchInfo(uid);
+			}
+		});
 	};
 
 	render() {
 		return (
 			<FormContainer>
-				<Form
-					data-test="form"
-					onSubmit={(e) => {
-						e.preventDefault();
-					}}
-				>
+				<Form data-test="form" onSubmit={this.handleLogin}>
 					<fieldset>
 						<label htmlFor="text">
-							<input
-								type="text"
-								id="useranme"
-								name="username"
-								placeHolder="Username"
-								required
-								value={this.state.username}
-								onChange={this.handleChange}
-							/>
+							<input type="text" id="useranme" name="email" placeHolder="Email" required ref="email" />
 						</label>
 						<label htmlFor="password">
 							<input
@@ -65,13 +48,10 @@ class Login extends Component {
 								name="password"
 								placeHolder="Password"
 								required
-								value={this.state.password}
-								onChange={this.handleChange}
+								ref="password"
 							/>
 						</label>
-						<button type="submit" onClick={this.handleLogin}>
-							Login
-						</button>
+						<button type="submit">Login</button>
 					</fieldset>
 					<p>
 						Don't have an account? <a>Sign up</a>

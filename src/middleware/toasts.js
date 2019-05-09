@@ -2,11 +2,11 @@ import { SHOW_TOAST } from '../constants/actionTypes';
 import { toast } from 'react-toastify';
 
 const reactToastifyDefaultOptions = {
-	autoClose: 1000,
-	closeButton: false,
+	autoClose: 3000,
+	closeButton: true,
 	type: toast.TYPE.SUCCESS,
 	hideProgressBar: false,
-	position: toast.POSITION.TOP_LEFT
+	position: toast.POSITION.TOP_RIGHT
 };
 
 const toastMiddleware = () => (next) => (action) => {

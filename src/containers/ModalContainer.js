@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { hideModal } from '../actions/modalActions';
 import { postItem, updateItem, getItem, getItemAsks, getItemBids } from '../actions/itemActions';
+import { updateProfileInfo } from '../actions/firebaseActions';
 import ModalType from '../components/Modals/ModalType';
 import {
 	PROFILE,
@@ -11,18 +12,29 @@ import {
 	UPDATE_ITEM,
 	BUY_BID_ITEM,
 	VIEW_ASKS,
-	VIEW_BIDS
+	VIEW_BIDS,
+	PASSWORD_RESET
 } from '../constants/labels';
 // MODALS
 import ProfileInfo from '../forms/ProfileInfo';
 import BuyingInfo from '../forms/BuyingInfo';
 import ShippingInfo from '../forms/ShippingInfo';
 import NewItem from '../forms/NewItem';
+import PasswordReset from '../forms/PasswordReset';
 import ItemAsks from '../components/ItemAsks';
 // container
 import BuyContainer from '../containers/BuyContainer';
 
-const ModalContainer = ({ modal, hideModal, postItem, updateItem, getItem, getItemAsks, getItemBids }) => {
+const ModalContainer = ({
+	modal,
+	updateProfileInfo,
+	hideModal,
+	postItem,
+	updateItem,
+	getItem,
+	getItemAsks,
+	getItemBids
+}) => {
 	let handleSubmit = (values) => {
 		postItem(values);
 	};
@@ -30,19 +42,16 @@ const ModalContainer = ({ modal, hideModal, postItem, updateItem, getItem, getIt
 		updateItem(values, modal.data.item_id);
 	};
 
-	let itemInfo = () => {
-		if (modal.data.item_info) return modal.data.item_info[0];
-		return {};
-	};
-
 	if (!modal.type) return null;
 	switch (modal.type) {
 		case PROFILE:
-			return <ModalType modal={<ProfileInfo />} onClose={hideModal} />;
+			return <ModalType modal={<ProfileInfo updateInfo={updateProfileInfo} />} onClose={hideModal} />;
+		case PASSWORD_RESET:
+			return <ModalType modal={<PasswordReset close={hideModal} />} onClose={hideModal} />;
 		case BUYING_INFO:
-			return <ModalType modal={<BuyingInfo />} onClose={hideModal} />;
+			return <ModalType modal={<BuyingInfo close={hideModal} />} onClose={hideModal} />;
 		case SHIPPING_INFO:
-			return <ModalType modal={<ShippingInfo />} onClose={hideModal} />;
+			return <ModalType modal={<ShippingInfo close={hideModal} />} onClose={hideModal} />;
 		case NEW_ITEM:
 			return <ModalType modal={<NewItem onSubmit={handleSubmit} />} onClose={hideModal} />;
 		case BUY_BID_ITEM:
@@ -65,13 +74,7 @@ const ModalContainer = ({ modal, hideModal, postItem, updateItem, getItem, getIt
 			return (
 				<ModalType
 					modal={
-						<NewItem
-							type="edit"
-							onSubmit={handleUpdateSubmit}
-							getItem={getItem}
-							id={modal.data.item_id}
-							// initialValues={{ name: 'test', poster: 'test_1' }}
-						/>
+						<NewItem type="edit" onSubmit={handleUpdateSubmit} getItem={getItem} id={modal.data.item_id} />
 					}
 					onClose={hideModal}
 				/>
@@ -87,6 +90,12 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { hideModal, postItem, updateItem, getItem, getItemAsks, getItemBids })(
-	ModalContainer
-);
+export default connect(mapStateToProps, {
+	hideModal,
+	postItem,
+	updateItem,
+	getItem,
+	getItemAsks,
+	getItemBids,
+	updateProfileInfo
+})(ModalContainer);

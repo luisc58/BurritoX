@@ -9,3 +9,4 @@ export const UPDATE_ITEM = 'UPDATE_ITEM';
 export const BUY_BID_ITEM = 'BUY_BID_ITEM';
 export const VIEW_ASKS = 'VIEW_ASKS';
 export const VIEW_BIDS = 'VIEW_BIDS';
+export const PASSWORD_RESET = 'PASSWORD_RESET';

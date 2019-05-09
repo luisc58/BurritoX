@@ -9,8 +9,10 @@ import isLoading from './isLoading';
 import search from './search';
 import pricing from './pricing';
 import modals from './modals';
+import firebaseUser from './firebaseUser';
 const rootReducer = combineReducers({
 	users,
+	currentUser: firebaseUser,
 	items,
 	search,
 	selectedItem,

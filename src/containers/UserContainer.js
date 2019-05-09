@@ -10,6 +10,7 @@ import Account from '../components/UserAccount/Account';
 import Settings from '../components/UserAccount/Settings';
 
 const StyledMain = Styled.div`
+	
     display: grid;
 	grid-template-columns: 15% 85%;
 `;
@@ -46,13 +47,13 @@ class UserContainer extends React.Component {
 			if (page === 'SELLING' || isLink('/selling')) return <Selling />;
 			if (page === 'ACCOUNT' || isLink('/account')) return <Account />;
 			if (page === 'SETTINGS' || isLink('/settings'))
-				return <Settings showModal={showModal} hideModal={hideModal} />;
+				return <Settings users={users} showModal={showModal} hideModal={hideModal} />;
 			return '';
 		};
 
 		return (
 			<StyledMain>
-				{activeSection() && <Sidebar name={users.name} onChange={setUserPage} />}
+				{activeSection() && <Sidebar name={users.username} onChange={setUserPage} />}
 				{activeSection() && <StyledSection>{currentPage(users.currentPage)}</StyledSection>}
 			</StyledMain>
 		);

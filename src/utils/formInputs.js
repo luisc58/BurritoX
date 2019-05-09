@@ -51,8 +51,9 @@ class SimpleFormSelectTest extends Component {
 			return value.value ? this.props.input.onBlur({ value }) : this.props.input.onBlur(value);
 		};
 		const handleChange = (value) => {
+			// console.log('this', value);
+			// selectOption(this.props.input.value);
 			if (!value) return this.props.input.onChange(null);
-			selectOption(this.props.input.value);
 			return value.value ? this.props.input.onChange({ value }) : this.props.input.onChange(value);
 		};
 

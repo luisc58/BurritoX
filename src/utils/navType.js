@@ -9,7 +9,7 @@ import 'nprogress/nprogress.css';
 //- get user type
 const mapStateToProps = (state) => {
 	return {
-		type: state.users.type
+		type: state.users.role
 	};
 };
 

@@ -1,5 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistStore } from 'redux-persist';
+import ReduxPromise from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import api from '../middleware/api';
 import toastMiddleware from '../middleware/toasts';
@@ -9,7 +11,7 @@ const configureStore = (initialState) => {
 		rootReducer,
 		initialState,
 		compose(
-			applyMiddleware(api, toastMiddleware),
+			applyMiddleware(ReduxThunk, api, toastMiddleware),
 			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 		)
 	);

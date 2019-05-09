@@ -8,10 +8,6 @@ class SellForm extends React.Component {
 	render() {
 		const { handleSubmit, options, highestBid, selectOption, selectedOption } = this.props;
 
-		let handleChange = (value) => {
-			console.log(value.value);
-		};
-
 		// let handleChange = (e) => {
 		// 	selectOption(e.target.value);
 		// };
@@ -22,7 +18,7 @@ class SellForm extends React.Component {
 					label="Item"
 					selectedOption={selectedOption}
 					selectOption={selectOption}
-					handleChange={handleChange}
+					//handleChange={handleChange}
 					options={options}
 					component={SimpleFormSelectTest}
 				/>

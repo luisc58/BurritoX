@@ -4,7 +4,10 @@ import { SET_USER, SET_USER_PAGE } from '../constants/actionTypes';
 
 export default handleActions(
 	{
-		[SET_USER]: (state, action) => action.payload,
+		[SET_USER]: (state, action) => {
+			// window.location.href = '/';
+			return action.payload;
+		},
 		[SET_USER_PAGE]: (state, action) => {
 			return {
 				...state,

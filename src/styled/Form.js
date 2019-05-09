@@ -5,6 +5,7 @@ const Form = styled.form`
 	line-height: 1.5;
 	line-height: 1.5;
 	font-weight: 600;
+	overflow-y: auto;
 	label {
 		display: block;
 		margin-bottom: 1.3rem;
@@ -13,7 +14,7 @@ const Form = styled.form`
 	textarea,
 	select {
 		width: 100%;
-		padding: 0.8rem;
+		padding: 0.9rem;
 		font-size: 1rem;
 		border: 1px solid black 0.2;
 		&:focus {

@@ -90,10 +90,6 @@ function setItem(item) {
 	};
 }
 
-function test(data) {
-	console.log(data);
-}
-
 export const selectItem = createAction(SELECT_ITEM);
 // SEARCH ACTIONS ----
 export const setSearchResults = createAction(SET_SEARCH_RESULTS);

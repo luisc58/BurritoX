@@ -9,7 +9,7 @@ import { GET_ITEMS } from '../constants/labels';
 const mapStateToProps = (state) => {
 	let searchResults = state.search.setSearchItems;
 	let default_category = state.search.product_category;
-	let userType = state.users.type;
+	let userType = state.users.role;
 	return {
 		items: Object.values(state.items),
 		searchResults,

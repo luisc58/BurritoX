@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import Styled from 'styled-components';
 import Form from '../styled/Form';
 import { StyledFormButton } from '../styled/Form';
-
+import { resetPassword } from '../actions/firebaseActions';
+import { showToast } from '../actions/toastActions';
+import { hideModal } from '../actions/modalActions';
 const StyledContainer = Styled.div`
     background: white;
     padding: 2.5rem;
@@ -11,15 +13,10 @@ const StyledContainer = Styled.div`
        font-size: 1.5rem;
    }
 `;
-class ProfileInfo extends React.Component {
+class PasswordReset extends React.Component {
 	state = {
-		name: '',
-		email: ''
+		password: ''
 	};
-
-	componentDidMount() {
-		this.setState({ ...this.props.initialValues });
-	}
 	handleChange = (e) => {
 		const { name, value } = e.target;
 		this.setState({ [name]: value });
@@ -27,33 +24,25 @@ class ProfileInfo extends React.Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		let uid = this.props.user.uid;
-		let name = this.state.name;
-		let email = this.state.email;
-		this.props.updateInfo(uid, name, email);
+		let password = this.state.password;
+		this.props.resetPassword(password).then((data) => {
+			this.props.showToast('success', 'Password Updated');
+			this.props.close();
+		});
 	};
 	render() {
 		return (
 			<StyledContainer>
-				<h2>Edit Profile</h2>
+				<h2>Reset Password</h2>
 				<Form onSubmit={this.handleSubmit}>
 					<fieldset>
-						<label htmlFor="text">
+						<label htmlFor="password">
+							New Password
 							<input
-								type="text"
-								name="name"
-								placeholder="Name"
-								value={this.state.name}
-								required
-								onChange={this.handleChange}
-							/>
-						</label>
-						<label htmlFor="email">
-							<input
-								type="text"
-								name="email"
-								placeholder="Email"
-								value={this.state.email}
+								type="password"
+								name="password"
+								placeholder="Password"
+								value={this.state.password}
 								required
 								onChange={this.handleChange}
 							/>
@@ -66,7 +55,9 @@ class ProfileInfo extends React.Component {
 	}
 }
 
-export default connect((state) => ({
-	initialValues: state.modals.modal.data,
-	user: state.users
-}))(ProfileInfo);
+export default connect(
+	(state) => ({
+		user: state.users
+	}),
+	{ resetPassword, showToast }
+)(PasswordReset);
