@@ -6,7 +6,6 @@ const StyledContainer = Styled.div`
     max-width: ${(props) => props.theme.max_width};
 `;
 
-/////
 const StyledItem = Styled.div`
 	padding: 12px;
 	display: flex;
@@ -36,6 +35,7 @@ const StyledItemContainer = Styled.div`
 const StyledToggle = Styled.div`
     padding: 2rem 0 0.5rem 0;
     border-bottom: solid 1px rgba(215,215,215);
+	
     button {
         font-size: 1.1rem;
         font-weight: 600;
@@ -44,26 +44,36 @@ const StyledToggle = Styled.div`
 `;
 
 class index extends Component {
-	componentDidMount() {
-		this.props.getItems();
-	}
 	render() {
-		const { getItems, items, deleteItem, showModal } = this.props;
+		const { items, deleteItem, showModal, getItem, setView, superView } = this.props;
+
+		let displayView = (view) => {
+			if (view === 'users') return displayUsers();
+			if (view === 'items') return displayItems(items, deleteItem, showModal, getItem);
+			if (view === 'pending_items') return displayPendingItems();
+		};
 		return (
 			<StyledContainer>
 				<StyledToggle>
-					<button>All Users</button>
-					<button onClick={() => getItems()}>All Items</button>
-					<button>Pending Users</button>
+					<button onClick={() => setView('users')}>All Users</button>
+					<button onClick={() => setView('items')}>All Items</button>
+					<button onClick={() => setView('pending_items')}>Pending Items</button>
 					<button>Taboo List</button>
 				</StyledToggle>
-				{displayItems(items, deleteItem, showModal)}
+				{displayView(superView)}
 			</StyledContainer>
 		);
 	}
 }
 
-function displayItems(items, deleteItem, showModal) {
+function displayUsers() {
+	return <h1> All Users</h1>;
+}
+
+function displayPendingItems() {
+	return <h1> Pending Items</h1>;
+}
+function displayItems(items, deleteItem, showModal, getItem) {
 	return (
 		<StyledItemContainer>
 			{items.map((item) => {
@@ -100,16 +110,7 @@ function displayItems(items, deleteItem, showModal) {
 							</div>
 						</div>
 						<div>
-							<button
-								className="edit"
-								onClick={() =>
-									showModal({
-										type: 'UPDATE_ITEM',
-										data: {
-											item_id: item.id
-										}
-									})}
-							>
+							<button className="edit" onClick={() => getItem(item.id, 'UPDATE_ITEM')}>
 								Edit
 							</button>
 							<button className="delete" onClick={() => deleteItem(item.id)}>

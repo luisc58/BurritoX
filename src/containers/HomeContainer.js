@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getItems, getAllItems, deleteItem, setSearchResults, setCategory } from '../actions/itemActions';
+import { setSearchResults, setCategory } from '../actions/itemActions';
+import { setSuperView } from '../actions/userActions';
 import { showModal } from '../actions/modalActions';
+import { getAllItems, getItem, deleteItem } from '../actions/firebaseItemActions';
 import Home from '../components/Home';
 import Super from '../components/Super';
 import { GET_ITEMS } from '../constants/labels';
@@ -15,7 +17,8 @@ const mapStateToProps = (state) => {
 		searchResults,
 		default_category,
 		loading: state.isLoading[GET_ITEMS],
-		userType
+		userType,
+		superView: state.users.currentView
 	};
 };
 
@@ -24,9 +27,12 @@ const HomeContainer = (props) => {
 		return (
 			<Super
 				getItems={props.getAllItems}
+				getItem={props.getItem}
 				deleteItem={props.deleteItem}
 				items={props.items}
 				showModal={props.showModal}
+				setView={props.setSuperView}
+				superView={props.superView}
 			/>
 		);
 	}
@@ -34,10 +40,11 @@ const HomeContainer = (props) => {
 };
 
 export default connect(mapStateToProps, {
-	getItems,
 	deleteItem,
 	getAllItems,
 	setSearchResults,
 	setCategory,
-	showModal
+	showModal,
+	getItem,
+	setSuperView
 })(HomeContainer);

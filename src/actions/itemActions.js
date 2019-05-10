@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import { normalize, schema } from 'normalizr';
 import { apiPayloadCreator } from '../utils/appUtils';
-import { showToast } from '../utils/helpers';
+
 import { API, GET_ITEMS, SET_ITEMS, SELECT_ITEM, SET_SEARCH_RESULTS, SET_CATEGORY } from '../constants/actionTypes';
 //CREATES ACTION CREATOR -- HARD CODED LOGIC
 const getItemsAC = createAction(API, apiPayloadCreator);
@@ -18,6 +18,7 @@ export const getItems = () =>
 		onSuccess: setItems,
 		label: GET_ITEMS
 	});
+
 export const getItem = (id) => {
 	return getItemAC({
 		url: `/super/item/${id}`,

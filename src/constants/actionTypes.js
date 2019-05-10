@@ -1,5 +1,6 @@
 export const SET_USER = 'SET_USER';
 export const SET_USER_PAGE = 'SET_USER_PAGE';
+export const SET_SUPER_VIEW = 'SET_SUPER_VIEW';
 export const SELECT_ITEM = 'SELECT_ITEM';
 export const GET_ITEMS = 'GET_ITEMS';
 export const SET_ITEMS = 'SET_ITEMS';

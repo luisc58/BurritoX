@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 const Form = styled.form`
-	padding: 30px;
-	line-height: 1.5;
-	line-height: 1.5;
+	padding: 20px;
+	line-height: 1.6;
 	font-weight: 600;
 	overflow-y: auto;
 	label {

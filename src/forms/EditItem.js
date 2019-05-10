@@ -13,13 +13,17 @@ const StyledContainer = Styled.div`
        font-size: 1.5rem;
    }
 `;
-class NewItem extends React.Component {
+class EditItem extends React.Component {
 	state = {
 		name: '',
 		poster: '',
 		description: '',
 		category: ''
 	};
+
+	componentWillMount() {
+		this.setState({ ...this.props.itemData });
+	}
 
 	handleChange = (e) => {
 		const { name, value } = e.target;
@@ -37,7 +41,7 @@ class NewItem extends React.Component {
 		return (
 			<StyledContainer>
 				<Form onSubmit={this.handleSubmit}>
-					<h2>Create Item</h2>
+					<h2>Edit Item</h2>
 					<fieldset>
 						<label htmlFor="text">
 							Name
@@ -93,7 +97,8 @@ class NewItem extends React.Component {
 
 export default connect(
 	(state) => ({
-		user: state.users
+		user: state.users,
+		itemData: state.modals.modal.data
 	}),
 	{ createItem, showToast }
-)(NewItem);
+)(EditItem);

@@ -19,13 +19,13 @@ class Items extends Component {
 	};
 	componentDidMount() {
 		// dispatch this action but -- display items based on default_category
-		this.props.getItems();
+		this.props.getAllItems();
 	}
 
 	itemsToDisplay(item) {
 		let itemJSX = (
 			<StyledItemLink href={`/items/${item.id}`} key={item.id}>
-				<Item key={item.id} name={item.name} poster={item.poster} price={item.market.lowestAsk} />
+				<Item key={item.id} name={item.name} poster={item.poster} />
 			</StyledItemLink>
 		);
 		// mispelled categoty in JSON // fix
@@ -37,11 +37,7 @@ class Items extends Component {
 	}
 
 	render() {
-		return (
-			<ItemsList>
-				{this.props.loading ? <h1>Loading...</h1> : this.props.items.map((item) => this.itemsToDisplay(item))}
-			</ItemsList>
-		);
+		return <ItemsList>{this.props.items.map((item) => this.itemsToDisplay(item))}</ItemsList>;
 	}
 }
 

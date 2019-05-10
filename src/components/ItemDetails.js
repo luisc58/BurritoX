@@ -41,12 +41,12 @@ class ItemDetails extends React.Component {
 					<li>
 						Rating: <span>{`${rating}`}</span>
 					</li>
-					<li>
+					{/* <li>
 						Lowest Ask: <span>{`$${market.lowestAsk}`}</span>
 					</li>
 					<li>
 						Highest Bid: <span>{`$${market.highestBid}`}</span>
-					</li>
+					</li> */}
 				</ul>
 				<StyledItemButton
 					onClick={() =>

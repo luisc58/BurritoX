@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { SET_USER, SET_USER_PAGE } from '../constants/actionTypes';
+import { SET_USER, SET_USER_PAGE, SET_SUPER_VIEW } from '../constants/actionTypes';
 // importing handleActions to handle multiple action types
 
 export default handleActions(
@@ -12,6 +12,12 @@ export default handleActions(
 			return {
 				...state,
 				currentPage: action.payload
+			};
+		},
+		[SET_SUPER_VIEW]: (state, action) => {
+			return {
+				...state,
+				currentView: action.payload
 			};
 		}
 	},

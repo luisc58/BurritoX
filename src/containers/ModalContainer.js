@@ -20,6 +20,7 @@ import ProfileInfo from '../forms/ProfileInfo';
 import BuyingInfo from '../forms/BuyingInfo';
 import ShippingInfo from '../forms/ShippingInfo';
 import NewItem from '../forms/NewItem';
+import EditItem from '../forms/EditItem';
 import PasswordReset from '../forms/PasswordReset';
 import ItemAsks from '../components/ItemAsks';
 // container
@@ -38,9 +39,6 @@ const ModalContainer = ({
 	let handleSubmit = (values) => {
 		postItem(values);
 	};
-	let handleUpdateSubmit = (values) => {
-		updateItem(values, modal.data.item_id);
-	};
 
 	if (!modal.type) return null;
 	switch (modal.type) {
@@ -53,7 +51,7 @@ const ModalContainer = ({
 		case SHIPPING_INFO:
 			return <ModalType modal={<ShippingInfo close={hideModal} />} onClose={hideModal} />;
 		case NEW_ITEM:
-			return <ModalType modal={<NewItem onSubmit={handleSubmit} />} onClose={hideModal} />;
+			return <ModalType modal={<NewItem onSubmit={handleSubmit} close={hideModal} />} onClose={hideModal} />;
 		case BUY_BID_ITEM:
 			return <ModalType modal={<BuyContainer onSubmit={handleSubmit} />} onClose={hideModal} />;
 		case VIEW_ASKS:
@@ -71,14 +69,7 @@ const ModalContainer = ({
 				/>
 			);
 		case UPDATE_ITEM:
-			return (
-				<ModalType
-					modal={
-						<NewItem type="edit" onSubmit={handleUpdateSubmit} getItem={getItem} id={modal.data.item_id} />
-					}
-					onClose={hideModal}
-				/>
-			);
+			return <ModalType modal={<EditItem close={hideModal} />} onClose={hideModal} />;
 		default:
 			return;
 	}
