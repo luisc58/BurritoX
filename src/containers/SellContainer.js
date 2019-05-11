@@ -5,6 +5,8 @@ import SellForm from '../forms/SellForm';
 import AskForm from '../forms/AskForm';
 import PillToggle from '../components/PillToggle';
 import { setPricing, clearPricing, selectOption } from '../actions/userActions';
+import { SHOW_MODAL } from '../constants/actionTypes';
+import { showModal } from '../actions/modalActions';
 
 const StyledContainer = Styled.div`
     background: rgba(215,215,215,0.2);
@@ -42,8 +44,7 @@ const mapStateToProps = (state) => {
 		options,
 		item,
 		selectedOption,
-		isSellActive: state.pricing.isSellActive,
-		highestBid: item.market.highestBid
+		isSellActive: state.pricing.isSellActive
 	};
 };
 
@@ -60,10 +61,18 @@ class SellContainer extends React.Component {
 		}
 	};
 	render() {
-		const { item, isSellActive, highestBid } = this.props;
+		const { item, isSellActive, highestBid, showModal } = this.props;
 		return (
 			<StyledContainer>
 				<StyledFormContainer>
+					<button
+						onClick={() =>
+							showModal({
+								type: 'NEW_ITEM'
+							})}
+					>
+						Submit request
+					</button>
 					<PillToggle {...this.props} />
 					{isSellActive ? SellNow(highestBid, <SellForm {...this.props} />) : <AskForm {...this.props} />}
 				</StyledFormContainer>
@@ -76,4 +85,4 @@ class SellContainer extends React.Component {
 	}
 }
 
-export default connect(mapStateToProps, { setPricing, clearPricing, selectOption })(SellContainer);
+export default connect(mapStateToProps, { setPricing, clearPricing, selectOption, showModal })(SellContainer);

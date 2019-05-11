@@ -14,8 +14,16 @@ const mapStateToProps = (state) => {
 	let default_category = state.search.product_category;
 	let userType = state.users.role;
 	let id = state.users.uid;
+	let a = Object.values(state.items);
+
+	function filterItems(b) {
+		return b.filter((item) => {
+			return item.verified === true;
+		});
+	}
+	let items = filterItems(a);
 	return {
-		items: Object.values(state.items),
+		items,
 		searchResults,
 		default_category,
 		loading: state.isLoading[GET_ITEMS],
