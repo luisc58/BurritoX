@@ -4,6 +4,7 @@ import { setSearchResults, setCategory } from '../actions/itemActions';
 import { setSuperView } from '../actions/userActions';
 import { showModal } from '../actions/modalActions';
 import { getAllItems, getItem, deleteItem } from '../actions/firebaseItemActions';
+import { fetchUsers } from '../actions/firebaseActions';
 import Home from '../components/Home';
 import Super from '../components/Super';
 import { GET_ITEMS } from '../constants/labels';
@@ -12,13 +13,16 @@ const mapStateToProps = (state) => {
 	let searchResults = state.search.setSearchItems;
 	let default_category = state.search.product_category;
 	let userType = state.users.role;
+	let id = state.users.uid;
 	return {
 		items: Object.values(state.items),
 		searchResults,
 		default_category,
 		loading: state.isLoading[GET_ITEMS],
 		userType,
-		superView: state.users.currentView
+		id,
+		superView: state.users.currentView,
+		users: Object.values(state.superUser.users)
 	};
 };
 
@@ -30,9 +34,12 @@ const HomeContainer = (props) => {
 				getItem={props.getItem}
 				deleteItem={props.deleteItem}
 				items={props.items}
+				users={props.users}
 				showModal={props.showModal}
 				setView={props.setSuperView}
 				superView={props.superView}
+				fetchUsers={props.fetchUsers}
+				userId={props.id}
 			/>
 		);
 	}
@@ -46,5 +53,6 @@ export default connect(mapStateToProps, {
 	setCategory,
 	showModal,
 	getItem,
-	setSuperView
+	setSuperView,
+	fetchUsers
 })(HomeContainer);

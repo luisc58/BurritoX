@@ -3,34 +3,13 @@ import Form from '../../styled/Form';
 import styled from 'styled-components';
 const FormContainer = styled.div`margin: 0 20rem;`;
 
-const ordinary = {
-	type: 'ordinary',
-	name: 'Luis Castillo'
-};
-
-const superUser = {
-	type: 'super',
-	name: 'Luis Castillo'
-};
-//======================
-//======================
 class Login extends Component {
-	//==============================
-	// testing hard-coded
-	//===============================
 	handleLogin = (event) => {
 		event.preventDefault();
 		const email = this.refs.email.value;
 		const password = this.refs.password.value;
 
-		this.props.loginUser({ email, password }).then((data) => {
-			if (data.errorCode) {
-				this.props.showToast('error', data.errorMessage);
-			} else {
-				const uid = data.user.uid;
-				this.props.fetchInfo(uid);
-			}
-		});
+		this.props.loginUser({ email, password });
 	};
 
 	render() {

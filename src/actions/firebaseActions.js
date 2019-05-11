@@ -1,22 +1,32 @@
-import { createAction } from 'redux-actions';
-import FirebaseTools, { firebaseDb } from '../utils/firebase';
-
-import {
-	LOGIN_WITH_PROVIDER_FIREBASE,
-	FETCH_FIREBASE_USER,
-	UPDATE_FIREBASE_USER,
-	CHANGE_FIREBASE_USER_PASSWORD,
-	FIREBASE_PASSWORD_RESET_EMAIL,
-	LOGOUT_FIREBASE_USER
-} from './types';
-
-export const loginWithProvider = createAction(LOGIN_WITH_PROVIDER_FIREBASE);
+import FirebaseTools, { firebaseDb, firebaseAuth } from '../utils/firebase';
 
 export const registerUser = (user) => async (dispatch) => {
 	return FirebaseTools.registerUser(user);
 };
 export const loginUser = (user) => async (dispatch) => {
-	return FirebaseTools.loginUser(user);
+	firebaseAuth
+		.signInWithEmailAndPassword(user.email, user.password)
+		.then((userInfo) => {
+			firebaseDb.ref(`users/${userInfo.user.uid}`).on('value', (snap) => {
+				if (snap.val().verified === true) {
+					dispatch({
+						type: 'SET_USER',
+						payload: { ...snap.val() }
+					});
+				} else {
+					dispatch({
+						type: 'SHOW_TOAST',
+						payload: { message: 'User has not been approved!', type: 'error' }
+					});
+				}
+			});
+		})
+		.catch((error) => {
+			dispatch({
+				type: 'SHOW_TOAST',
+				payload: { message: error.message, type: 'error' }
+			});
+		});
 };
 
 export const setAuthInfo = (user) => {
@@ -64,8 +74,13 @@ export const resetPassword = (newpassword) => async (dispatch) => {
 	return FirebaseTools.changePassword(newpassword);
 };
 
-export const fetchUser = createAction(FETCH_FIREBASE_USER);
-export const updateUser = createAction(UPDATE_FIREBASE_USER);
-export const changePassword = createAction(CHANGE_FIREBASE_USER_PASSWORD);
-export const resetPasswordEmail = createAction(FIREBASE_PASSWORD_RESET_EMAIL);
-export const logoutUser = createAction(LOGOUT_FIREBASE_USER);
+export const fetchUsers = (currentUserId) => async (dispatch) => {
+	firebaseDb.ref(`users`).on('value', (snap) => {
+		if (currentUserId !== snap.key) {
+			dispatch({
+				type: 'FETCH_USERS',
+				payload: { ...snap.val() }
+			});
+		}
+	});
+};

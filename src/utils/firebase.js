@@ -58,9 +58,11 @@ const FirebaseTools = {
 		return firebaseDb
 			.ref(`users/${user.uid}`)
 			.set({
+				id: user.uid,
 				username: user.username,
 				email: user.email,
-				role: user.role
+				role: user.role,
+				verified: false
 			})
 			.then(() => {
 				window.location.href = '/login';
@@ -104,7 +106,13 @@ const FirebaseTools = {
 	loginUser: (user) =>
 		firebaseAuth
 			.signInWithEmailAndPassword(user.email, user.password)
-			.then((userInfo) => userInfo)
+			.then((userInfo) => {
+				let test = {};
+				firebaseDb.ref(`users/${userInfo.user.uid}`).on('value', (snap) => {
+					if (snap.val().verified === true) {
+					}
+				});
+			})
 			.catch((error) => ({
 				errorCode: error.code,
 				errorMessage: error.message

@@ -4,16 +4,17 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import users from './users';
 import items from './items';
+import superUser from './superUser';
 import selectedItem from './selectedItem';
 import isLoading from './isLoading';
 import search from './search';
 import pricing from './pricing';
 import modals from './modals';
-import firebaseUser from './firebaseUser';
+
 const rootReducer = combineReducers({
 	users,
-	currentUser: firebaseUser,
 	items,
+	superUser,
 	search,
 	selectedItem,
 	isLoading,

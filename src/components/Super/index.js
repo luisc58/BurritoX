@@ -9,6 +9,7 @@ const StyledContainer = Styled.div`
 const StyledItem = Styled.div`
 	padding: 12px;
 	display: flex;
+	width: 100%;
 	border-bottom: 1px solid rgba(215,215,215,0.8);
 	img{
 		height: 6rem;
@@ -27,7 +28,10 @@ const StyledItem = Styled.div`
 		background: red;
 		color: white;
 	} 
-	.edit { background: green; color: white; margin: 0 10px;}
+	.edit { 
+		background: #1fdfbc; color: white; margin: 0 10px;
+			margin-left: 2rem;
+		}
 `;
 const StyledItemContainer = Styled.div`
 	padding: 1rem;
@@ -45,12 +49,12 @@ const StyledToggle = Styled.div`
 
 class index extends Component {
 	render() {
-		const { items, deleteItem, showModal, getItem, setView, superView } = this.props;
+		const { setView, superView, fetchUsers, userId } = this.props;
 
 		let displayView = (view) => {
-			if (view === 'users') return displayUsers();
-			if (view === 'items') return displayItems(items, deleteItem, showModal, getItem);
-			if (view === 'pending_items') return displayPendingItems();
+			if (view === 'users') return <Users {...this.props} />;
+			if (view === 'items') return <Items {...this.props} />;
+			if (view === 'pending_items') displayPendingItems();
 		};
 		return (
 			<StyledContainer>
@@ -66,62 +70,96 @@ class index extends Component {
 	}
 }
 
-function displayUsers() {
-	return <h1> All Users</h1>;
+class Users extends Component {
+	componentDidMount() {
+		const { fetchUsers, userId } = this.props;
+		fetchUsers(userId);
+	}
+	render() {
+		function filterUsers(users) {
+			return users.filter((user) => {
+				return user.role != 'super';
+			});
+		}
+
+		function displayButton(isApproved) {
+			if (!isApproved) return <button className="edit">Approve User</button>;
+		}
+		let users = filterUsers(this.props.users);
+		return (
+			<StyledContainer>
+				{users.map((user) => {
+					return (
+						<StyledItem key={user.id}>
+							<h1>{user.email}</h1>
+							{displayButton(user.verified)}
+						</StyledItem>
+					);
+				})}
+			</StyledContainer>
+		);
+	}
 }
 
 function displayPendingItems() {
 	return <h1> Pending Items</h1>;
 }
-function displayItems(items, deleteItem, showModal, getItem) {
-	return (
-		<StyledItemContainer>
-			{items.map((item) => {
-				return (
-					<StyledItem key={item.id}>
-						<img src={item.poster} alt={item.name} />
-						<div className="info">
-							<span>{item.name}</span>
-							<p>{item.description}</p>
-							<span>{item.product_category}</span>
-							<div className="actions">
-								<button
-									onClick={() =>
-										showModal({
-											type: 'VIEW_ASKS',
-											data: {
-												item_id: item.id
-											}
-										})}
-								>
-									View Asks
+
+class Items extends Component {
+	componentDidMount() {
+		this.props.getItems();
+	}
+	render() {
+		const { items, deleteItem, showModal, getItem } = this.props;
+		return (
+			<StyledItemContainer>
+				{items.map((item) => {
+					return (
+						<StyledItem key={item.id}>
+							<img src={item.poster} alt={item.name} />
+							<div className="info">
+								<span>{item.name}</span>
+								<p>{item.description}</p>
+								<span>{item.product_category}</span>
+								<div className="actions">
+									<button
+										onClick={() =>
+											showModal({
+												type: 'VIEW_ASKS',
+												data: {
+													item_id: item.id
+												}
+											})}
+									>
+										View Asks
+									</button>
+									<button
+										onClick={() =>
+											showModal({
+												type: 'VIEW_BIDS',
+												data: {
+													item_id: item.id
+												}
+											})}
+									>
+										View Bids
+									</button>
+								</div>
+							</div>
+							<div>
+								<button className="edit" onClick={() => getItem(item.id, 'UPDATE_ITEM')}>
+									Edit
 								</button>
-								<button
-									onClick={() =>
-										showModal({
-											type: 'VIEW_BIDS',
-											data: {
-												item_id: item.id
-											}
-										})}
-								>
-									View Bids
+								<button className="delete" onClick={() => deleteItem(item.id)}>
+									Delete
 								</button>
 							</div>
-						</div>
-						<div>
-							<button className="edit" onClick={() => getItem(item.id, 'UPDATE_ITEM')}>
-								Edit
-							</button>
-							<button className="delete" onClick={() => deleteItem(item.id)}>
-								Delete
-							</button>
-						</div>
-					</StyledItem>
-				);
-			})}
-		</StyledItemContainer>
-	);
+						</StyledItem>
+					);
+				})}
+			</StyledItemContainer>
+		);
+	}
 }
 
 export default index;
