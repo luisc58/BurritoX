@@ -18,7 +18,8 @@ class NewItem extends React.Component {
 		name: '',
 		poster: '',
 		description: '',
-		category: ''
+		category: '',
+		verified: false
 	};
 
 	handleChange = (e) => {

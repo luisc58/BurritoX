@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
+import { taboo } from '../../utils/helpers';
 
 const StyledContainer = Styled.div`
     margin: auto 3rem;
@@ -49,12 +50,12 @@ const StyledToggle = Styled.div`
 
 class index extends Component {
 	render() {
-		const { setView, superView, fetchUsers, userId } = this.props;
+		const { setView, superView, pendingItems } = this.props;
 
 		let displayView = (view) => {
 			if (view === 'users') return <Users {...this.props} />;
 			if (view === 'items') return <Items {...this.props} />;
-			if (view === 'pending_items') displayPendingItems();
+			if (view === 'pending_items') return <PendingItems items={pendingItems} />;
 		};
 		return (
 			<StyledContainer>
@@ -101,9 +102,35 @@ class Users extends Component {
 	}
 }
 
-function displayPendingItems() {
-	return <h1> Pending Items</h1>;
+class PendingItems extends Component {
+	render() {
+		const { items } = this.props;
+
+		return (
+			<StyledItemContainer>
+				{items.map((item) => {
+					let name = item.name;
+					let description = item.description;
+					let words = taboo(name, description);
+					return (
+						<StyledItem key={item.id}>
+							<img src={item.poster} alt={item.name} />
+							<div className="info">
+								<span>{words.newTitle}</span>
+								<p>{words.newDesc}</p>
+								<span>{item.category}</span>
+							</div>
+							<div>
+								<button className="edit">Approve Item</button>
+							</div>
+						</StyledItem>
+					);
+				})}
+			</StyledItemContainer>
+		);
+	}
 }
+function displayPendingItems() {}
 
 class Items extends Component {
 	componentDidMount() {
@@ -120,7 +147,7 @@ class Items extends Component {
 							<div className="info">
 								<span>{item.name}</span>
 								<p>{item.description}</p>
-								<span>{item.product_category}</span>
+								<span>{item.category}</span>
 								<div className="actions">
 									<button
 										onClick={() =>

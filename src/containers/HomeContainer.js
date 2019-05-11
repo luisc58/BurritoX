@@ -21,9 +21,18 @@ const mapStateToProps = (state) => {
 			return item.verified === true;
 		});
 	}
+
+	function filterPendingItems(c) {
+		return c.filter((item) => {
+			return item.verified === false;
+		});
+	}
+
 	let items = filterItems(a);
+	let pendingItems = filterPendingItems(a);
 	return {
 		items,
+		pendingItems,
 		searchResults,
 		default_category,
 		loading: state.isLoading[GET_ITEMS],
@@ -42,6 +51,7 @@ const HomeContainer = (props) => {
 				getItem={props.getItem}
 				deleteItem={props.deleteItem}
 				items={props.items}
+				pendingItems={props.pendingItems}
 				users={props.users}
 				showModal={props.showModal}
 				setView={props.setSuperView}
