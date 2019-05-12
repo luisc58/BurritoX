@@ -11,26 +11,43 @@ const SimpleFormInput = (props) => {
 	);
 };
 
+// const SimpleFormSelect = (props) => {
+// 	const { name, label, options, value, selectedOption } = props;
+
+// 	const handleBlur = () => {
+// 		const { value } = props.input;
+// 		if (!value) return props.input.onBlur(null);
+// 		return value.value ? props.input.onBlur({ value }) : props.input.onBlur(value);
+// 	};
+
+// 	const handleChange = (value) => {
+// 		if (!value) return props.input.onChange(null);
+// 		return value.value ? props.input.onChange({ value }) : props.input.onChange(value);
+// 	};
+// 	return (
+// 		<div>
+// 			<StyledFormLabel htmlFor={name}>{label}</StyledFormLabel>
+// 			<StyledFormSelect value={value} onChange={handleChange} onBlur={handleBlur}>
+// 				<option value="1" disabled selected>
+// 					Select
+// 				</option>
+// 				{options.map((item) => (
+// 					<option key={item.value} value={item.value} selected={item.value === selectedOption}>
+// 						{item.name}
+// 					</option>
+// 				))}
+// 			</StyledFormSelect>
+// 		</div>
+// 	);
+// };
+
 const SimpleFormSelect = (props) => {
-	const { name, label, options, value, selectedOption } = props;
+	const { name, label, handleChange, options, value, selectedOption } = props;
 
-	const handleBlur = () => {
-		const { value } = props.input;
-		if (!value) return props.input.onBlur(null);
-		return value.value ? props.input.onBlur({ value }) : props.input.onBlur(value);
-	};
-
-	const handleChange = (value) => {
-		if (!value) return props.input.onChange(null);
-		return value.value ? props.input.onChange({ value }) : props.input.onChange(value);
-	};
 	return (
 		<div>
 			<StyledFormLabel htmlFor={name}>{label}</StyledFormLabel>
-			<StyledFormSelect value={value} onChange={handleChange} onBlur={handleBlur}>
-				<option value="1" disabled selected>
-					Select
-				</option>
+			<StyledFormSelect value={value} onChange={handleChange}>
 				{options.map((item) => (
 					<option key={item.value} value={item.value} selected={item.value === selectedOption}>
 						{item.name}

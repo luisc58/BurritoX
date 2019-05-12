@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
 import { taboo } from '../../utils/helpers';
+import { approveUser } from '../../actions/firebaseActions';
 
 const StyledContainer = Styled.div`
     margin: auto 3rem;
@@ -50,12 +51,13 @@ const StyledToggle = Styled.div`
 
 class index extends Component {
 	render() {
-		const { setView, superView, pendingItems } = this.props;
+		const { setView, superView, pendingItems, approveItem } = this.props;
 
 		let displayView = (view) => {
 			if (view === 'users') return <Users {...this.props} />;
 			if (view === 'items') return <Items {...this.props} />;
-			if (view === 'pending_items') return <PendingItems items={pendingItems} />;
+			if (view === 'pending_items') return <PendingItems items={pendingItems} approveItem={approveItem} />;
+			if (view === 'taboo') return displayTaboo();
 		};
 		return (
 			<StyledContainer>
@@ -63,7 +65,7 @@ class index extends Component {
 					<button onClick={() => setView('users')}>All Users</button>
 					<button onClick={() => setView('items')}>All Items</button>
 					<button onClick={() => setView('pending_items')}>Pending Items</button>
-					<button>Taboo List</button>
+					<button onClick={() => setView('taboo')}>Taboo List</button>
 				</StyledToggle>
 				{displayView(superView)}
 			</StyledContainer>
@@ -83,8 +85,13 @@ class Users extends Component {
 			});
 		}
 
-		function displayButton(isApproved) {
-			if (!isApproved) return <button className="edit">Approve User</button>;
+		function displayButton(isApproved, id, approve) {
+			if (!isApproved)
+				return (
+					<button className="edit" onClick={() => approve(id)}>
+						Approve User
+					</button>
+				);
 		}
 		let users = filterUsers(this.props.users);
 		return (
@@ -93,7 +100,7 @@ class Users extends Component {
 					return (
 						<StyledItem key={user.id}>
 							<h1>{user.email}</h1>
-							{displayButton(user.verified)}
+							{displayButton(user.verified, user.id, this.props.approveUser)}
 						</StyledItem>
 					);
 				})}
@@ -104,7 +111,7 @@ class Users extends Component {
 
 class PendingItems extends Component {
 	render() {
-		const { items } = this.props;
+		const { items, approveItem } = this.props;
 
 		return (
 			<StyledItemContainer>
@@ -121,7 +128,12 @@ class PendingItems extends Component {
 								<span>{item.category}</span>
 							</div>
 							<div>
-								<button className="edit">Approve Item</button>
+								<button className="edit" onClick={() => approveItem(item.id)}>
+									Approve Item
+								</button>
+							</div>
+							<div>
+								<button className="delete">Send Warning</button>
 							</div>
 						</StyledItem>
 					);
@@ -130,7 +142,20 @@ class PendingItems extends Component {
 		);
 	}
 }
-function displayPendingItems() {}
+function displayTaboo() {
+	let list = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ];
+	return (
+		<StyledContainer>
+			{list.map((word) => {
+				return (
+					<StyledItem>
+						<h1>{word}</h1>
+					</StyledItem>
+				);
+			})}
+		</StyledContainer>
+	);
+}
 
 class Items extends Component {
 	componentDidMount() {

@@ -59,6 +59,16 @@ export const updateProfileInfo = (uid, username, email) => async (dispatch) => {
 		});
 };
 
+export const approveUser = (uid) => async (dispatch) => {
+	let ref = firebaseDb.ref(`users/${uid}`);
+	ref.update({ verified: true }).then(() => {
+		dispatch({
+			type: 'SHOW_TOAST',
+			payload: { type: 'success', message: 'User approved' }
+		});
+	});
+};
+
 export const updateAccountInfo = (uid, path, data) => async (dispatch) => {
 	firebaseDb.ref(`users/${uid}/${path}`).set({ ...data }).then(() => {
 		firebaseDb.ref(`users/${uid}`).on('value', (snap) => {

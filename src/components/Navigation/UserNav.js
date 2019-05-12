@@ -7,10 +7,12 @@ const UserNav = () => {
 			<a href="/">
 				Burrito<span>X</span>
 			</a>
+
 			<StyledLinks>
 				<StyledDropdown>
 					<span>My Account</span>
 					<div className="dropdown-content">
+						<a href="/friends">Friends</a>
 						<a href="/buying">Buying</a>
 						<a href="/selling">Selling</a>
 						<a href="/account">Account</a>

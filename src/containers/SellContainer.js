@@ -5,7 +5,6 @@ import SellForm from '../forms/SellForm';
 import AskForm from '../forms/AskForm';
 import PillToggle from '../components/PillToggle';
 import { setPricing, clearPricing, selectOption } from '../actions/userActions';
-import { SHOW_MODAL } from '../constants/actionTypes';
 import { showModal } from '../actions/modalActions';
 
 const StyledContainer = Styled.div`
@@ -35,7 +34,7 @@ const StyledFormContainer = Styled.div`
 const mapStateToProps = (state) => {
 	let items = Object.values(state.items);
 	let selectedOption = state.pricing.selectedOption;
-	let options = items.map((item) => ({
+	let options = items.filter((item) => item.verified === true).map((item) => ({
 		name: item.name,
 		value: item.id
 	}));

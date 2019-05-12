@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import GlobalStyle from '../styled/GlobalStyle';
 import HomeContainer from '../containers/HomeContainer';
 import SignupContainer from '../containers/SignupContainer';
+import FriendsContainer from '../containers/FriendsContainer';
 import LoginContainer from '../containers/LoginContainer';
 import ItemDetailsContainer from '../containers/ItemDetailsContainer';
 import StyledContainer from '../styled/StyledContainer';
@@ -32,6 +33,7 @@ const App = (props) => {
 			<StyledContainer>
 				<ModalContainer />
 				<Route exact path="/" component={HomeContainer} />
+				<Route exact path="/friends" component={FriendsContainer} />
 				<Route exact path="/items/:id" component={ItemDetailsContainer} />
 				<Route exact path="/login" component={LoginContainer} />
 				<Route exact path="/signup" component={SignupContainer} />

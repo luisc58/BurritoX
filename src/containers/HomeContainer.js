@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { setSearchResults, setCategory } from '../actions/itemActions';
 import { setSuperView } from '../actions/userActions';
 import { showModal } from '../actions/modalActions';
-import { getAllItems, getItem, deleteItem } from '../actions/firebaseItemActions';
-import { fetchUsers } from '../actions/firebaseActions';
+import { getAllItems, getItem, deleteItem, approveItem } from '../actions/firebaseItemActions';
+import { fetchUsers, approveUser } from '../actions/firebaseActions';
 import Home from '../components/Home';
 import Super from '../components/Super';
 import { GET_ITEMS } from '../constants/labels';
@@ -58,6 +58,8 @@ const HomeContainer = (props) => {
 				superView={props.superView}
 				fetchUsers={props.fetchUsers}
 				userId={props.id}
+				approveItem={props.approveItem}
+				approveUser={props.approveUser}
 			/>
 		);
 	}
@@ -72,5 +74,7 @@ export default connect(mapStateToProps, {
 	showModal,
 	getItem,
 	setSuperView,
-	fetchUsers
+	fetchUsers,
+	approveItem,
+	approveUser
 })(HomeContainer);

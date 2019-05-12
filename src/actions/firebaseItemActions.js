@@ -15,6 +15,15 @@ export const createItem = (item) => async (dispatch) => {
 	});
 };
 
+export const approveItem = (uid) => async (dispatch) => {
+	let ref = firebaseDb.ref(`items/${uid}`);
+	ref.update({ verified: true }).then(() => {
+		dispatch({
+			type: 'SHOW_TOAST',
+			payload: { type: 'success', message: 'Item updated' }
+		});
+	});
+};
 export const getAllItems = () => async (dispatch) => {
 	let ref = firebaseDb.ref(`items`);
 	ref.on('value', (snap) => {

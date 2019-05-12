@@ -8,9 +8,9 @@ class SellForm extends React.Component {
 	render() {
 		const { handleSubmit, options, highestBid, selectOption, selectedOption } = this.props;
 
-		// let handleChange = (e) => {
-		// 	selectOption(e.target.value);
-		// };
+		let handleChange = (e) => {
+			selectOption(e.target.value);
+		};
 		return (
 			<form onSubmit={handleSubmit} className="form">
 				<Field
@@ -18,7 +18,7 @@ class SellForm extends React.Component {
 					label="Item"
 					selectedOption={selectedOption}
 					selectOption={selectOption}
-					//handleChange={handleChange}
+					handleChange={handleChange}
 					options={options}
 					component={SimpleFormSelectTest}
 				/>

@@ -9,11 +9,13 @@ import selectedItem from './selectedItem';
 import isLoading from './isLoading';
 import search from './search';
 import pricing from './pricing';
+import friends from './friends';
 import modals from './modals';
 
 const rootReducer = combineReducers({
 	users,
 	items,
+	friends,
 	superUser,
 	search,
 	selectedItem,
