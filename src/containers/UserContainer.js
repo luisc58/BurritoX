@@ -8,6 +8,7 @@ import Buying from '../components/UserAccount/Buying';
 import Selling from '../components/UserAccount/Selling';
 import Account from '../components/UserAccount/Account';
 import Settings from '../components/UserAccount/Settings';
+import Complaints from '../components/UserAccount/Complaints';
 
 const StyledMain = Styled.div`
 	
@@ -16,7 +17,7 @@ const StyledMain = Styled.div`
 `;
 
 const StyledSection = Styled.div`
-	padding: 1.5rem;
+	padding: 0rem;
 `;
 
 // we can make this reusable but for now it's ok --
@@ -27,7 +28,7 @@ const mapStateToProps = (state) => {
 };
 
 const activeSection = () => {
-	const links = [ '/buying', '/selling', '/account', '/settings' ];
+	const links = [ '/buying', '/selling', '/complaints', '/account', '/settings' ];
 	const path = window.location.pathname;
 	if (links.includes(path)) return true;
 	return false;
@@ -45,6 +46,7 @@ class UserContainer extends React.Component {
 		const currentPage = (page) => {
 			if (page === 'BUYING' || isLink('/buying')) return <Buying />;
 			if (page === 'SELLING' || isLink('/selling')) return <Selling />;
+			if (page === 'COMPLAINS' || isLink('/complaints')) return <Complaints />;
 			if (page === 'ACCOUNT' || isLink('/account')) return <Account />;
 			if (page === 'SETTINGS' || isLink('/settings'))
 				return <Settings users={users} showModal={showModal} hideModal={hideModal} />;
