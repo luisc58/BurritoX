@@ -13,7 +13,8 @@ export function showToast(message, options) {
 }
 
 export function taboo(title, desc) {
-	var newTitle = title.replace(/Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday/gi, '****');
-	var newDesc = desc.replace(/Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday/gi, '****');
+	var regx = new RegExp(`Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday`, 'gi');
+	var newTitle = title.replace(regx, '****');
+	var newDesc = desc.replace(regx, '****');
 	return { newTitle, newDesc };
 }

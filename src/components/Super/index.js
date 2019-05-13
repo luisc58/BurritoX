@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Styled from 'styled-components';
 import { taboo } from '../../utils/helpers';
 import { approveUser } from '../../actions/firebaseActions';
+import { Bar } from 'react-chartjs-2';
 
 const StyledContainer = Styled.div`
     margin: auto 3rem;
@@ -57,6 +58,7 @@ class index extends Component {
 			if (view === 'users') return <Users {...this.props} />;
 			if (view === 'items') return <Items {...this.props} />;
 			if (view === 'pending_items') return <PendingItems items={pendingItems} approveItem={approveItem} />;
+			if (view === 'transactions') return <Transactions />;
 			if (view === 'taboo') return displayTaboo();
 		};
 		return (
@@ -65,6 +67,7 @@ class index extends Component {
 					<button onClick={() => setView('users')}>All Users</button>
 					<button onClick={() => setView('items')}>All Items</button>
 					<button onClick={() => setView('pending_items')}>Pending Items</button>
+					<button onClick={() => setView('transactions')}>Transactions</button>
 					<button onClick={() => setView('taboo')}>Taboo List</button>
 				</StyledToggle>
 				{displayView(superView)}
@@ -73,6 +76,35 @@ class index extends Component {
 	}
 }
 
+class Transactions extends Component {
+	render() {
+		const data = {
+			labels: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July' ],
+			datasets: [
+				{
+					label: 'Number of sales',
+					backgroundColor: 'rgba(31,223,188,0.5)',
+					borderColor: 'rgba(31,223,188,0.8)',
+					borderWidth: 1,
+					hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+					hoverBorderColor: 'rgba(255,99,132,1)',
+					data: [ 65, 59, 80, 81, 56, 55, 40, 10 ]
+				}
+			]
+		};
+
+		return (
+			<Bar
+				data={data}
+				width={100}
+				height={400}
+				options={{
+					maintainAspectRatio: false
+				}}
+			/>
+		);
+	}
+}
 class Users extends Component {
 	componentDidMount() {
 		const { fetchUsers, userId } = this.props;

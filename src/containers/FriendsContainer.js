@@ -23,7 +23,10 @@ class FriendsContainer extends Component {
 		const { friends, users, userId } = this.props;
 		return (
 			<StyledContainer>
-				<FriendList />
+				<div>
+					<FriendList friends={friends} />
+				</div>
+
 				<Users userId={userId} friends={friends} users={users} />
 			</StyledContainer>
 		);

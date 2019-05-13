@@ -19,14 +19,13 @@ const StyledUser = Styled.div`
 `;
 
 function filterUsers(users, friends) {
-    console.log(friends);
 	return users
 		.filter((user) => {
 			return user.role != 'super';
 		})
-		// .filter((user) => {
-		// 	return !(user.id in friends);
-		// });
+		.filter((user) => {
+			return !(user.id in friends);
+		});
 }
 
 class Users extends Component {
