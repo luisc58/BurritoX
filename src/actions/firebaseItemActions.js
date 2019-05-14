@@ -10,7 +10,11 @@ export const createItem = (item, uid) => async (dispatch) => {
 	const key = ref.push().key;
 	ref
 		.child(key)
-		.update({ id: key, ...item, aks: { [transactionKey]: { price: item.price, id: transactionKey, seller: uid } } })
+		.update({
+			id: key,
+			...item,
+			asks: { [transactionKey]: { price: item.price, id: transactionKey, seller: uid } }
+		})
 		.then(() => {
 			ref.on('value', (snap) => {
 				dispatch({

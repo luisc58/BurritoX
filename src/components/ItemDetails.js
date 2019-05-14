@@ -29,7 +29,7 @@ class ItemDetails extends React.Component {
 	}
 
 	render() {
-		const { name, poster, seller, rating, market, description } = this.props.selectedItem;
+		const { name, poster, seller, price, description } = this.props.selectedItem;
 
 		return (
 			<StyledItemDetails>
@@ -39,14 +39,8 @@ class ItemDetails extends React.Component {
 						Seller: <span>{`${seller}`}</span>
 					</li>
 					<li>
-						Rating: <span>{`${rating}`}</span>
+						Price: <span>{`$${price}`}</span>
 					</li>
-					{/* <li>
-						Lowest Ask: <span>{`$${market.lowestAsk}`}</span>
-					</li>
-					<li>
-						Highest Bid: <span>{`$${market.highestBid}`}</span>
-					</li> */}
 				</ul>
 				<StyledItemButton
 					onClick={() =>

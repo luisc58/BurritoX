@@ -23,19 +23,11 @@ import NewItem from '../forms/NewItem';
 import EditItem from '../forms/EditItem';
 import PasswordReset from '../forms/PasswordReset';
 import ItemAsks from '../components/ItemAsks';
+import Buyitem from '../components/BuyItem';
 // container
 import BuyContainer from '../containers/BuyContainer';
 
-const ModalContainer = ({
-	modal,
-	updateProfileInfo,
-	hideModal,
-	postItem,
-	updateItem,
-	getItem,
-	getItemAsks,
-	getItemBids
-}) => {
+const ModalContainer = ({ modal, updateProfileInfo, hideModal, postItem, getItemAsks, getItemBids }) => {
 	let handleSubmit = (values) => {
 		postItem(values);
 	};
@@ -70,6 +62,8 @@ const ModalContainer = ({
 			);
 		case UPDATE_ITEM:
 			return <ModalType modal={<EditItem close={hideModal} />} onClose={hideModal} />;
+		case 'BUY_ITEM':
+			return <ModalType modal={<Buyitem />} onClose={hideModal} />;
 		default:
 			return;
 	}

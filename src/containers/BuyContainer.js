@@ -12,16 +12,16 @@ const StyledContainer = Styled.div`
     padding: 20px;
 `;
 
-// function displayView(form, isBidActive) {
-// 	if(form === 'bid')
-// }
 class BuyContainer extends Component {
+	// need to sort item asks
+	// mispelled asks --- change later
 	render() {
-		const { form, isSellActive } = this.props;
+		const { form, isSellActive, asks } = this.props;
 		return (
 			<StyledContainer>
 				<PillToggle rightName="Buy Now" leftName="Bid Now" {...this.props} />
-				{form === 'bid' || isSellActive ? <BidForm /> : <BuyForm />}
+
+				{form === 'bid' || isSellActive ? <BidForm /> : <BuyForm asks={asks} />}
 			</StyledContainer>
 		);
 	}
@@ -30,6 +30,7 @@ class BuyContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		form: state.modals.modal.data.form,
+		asks: Object.values(state.items[state.selectedItem].aks),
 		isSellActive: state.pricing.isSellActive
 	};
 };

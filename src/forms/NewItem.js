@@ -19,7 +19,6 @@ class NewItem extends React.Component {
 		poster: '',
 		description: '',
 		category: '',
-		seller: this.props.user.id,
 		price: '',
 		verified: false
 	};
