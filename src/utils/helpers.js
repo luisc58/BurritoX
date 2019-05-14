@@ -34,3 +34,14 @@ export function calculateTax(purchaseAmount, state) {
 
 	return tax;
 }
+
+// get object containing all US states
+export function getAllStates() {
+	let states = {};
+
+	for (let state in taxRates) {
+		states[taxRates[state].abbreviation] = state;
+	}
+
+	return states;
+}
