@@ -14,6 +14,9 @@ const Sidebar = ({ name, onChange }) => {
 			<a href="/complaints" onClick={() => onChange('COMPLAINTS')}>
 				Complaints
 			</a>
+			<a href="/transactions" onClick={() => onChange('TRANSACTIONS')}>
+				Transaction History
+			</a>
 			<a href="/account" onClick={() => onChange('ACCOUNT')}>
 				Profile
 			</a>

@@ -9,9 +9,9 @@ import Selling from '../components/UserAccount/Selling';
 import Account from '../components/UserAccount/Account';
 import Settings from '../components/UserAccount/Settings';
 import Complaints from '../components/UserAccount/Complaints';
+import Transactions from '../components/UserAccount/Transactions';
 
 const StyledMain = Styled.div`
-	
     display: grid;
 	grid-template-columns: 15% 85%;
 `;
@@ -28,7 +28,7 @@ const mapStateToProps = (state) => {
 };
 
 const activeSection = () => {
-	const links = [ '/buying', '/selling', '/complaints', '/account', '/settings' ];
+	const links = [ '/buying', '/selling', '/complaints', '/transactions', '/account', '/settings' ];
 	const path = window.location.pathname;
 	if (links.includes(path)) return true;
 	return false;
@@ -47,6 +47,7 @@ class UserContainer extends React.Component {
 			if (page === 'BUYING' || isLink('/buying')) return <Buying />;
 			if (page === 'SELLING' || isLink('/selling')) return <Selling />;
 			if (page === 'COMPLAINS' || isLink('/complaints')) return <Complaints />;
+			if (page === 'TRANSACTIONS' || isLink('/transactions')) return <Transactions />;
 			if (page === 'ACCOUNT' || isLink('/account')) return <Account />;
 			if (page === 'SETTINGS' || isLink('/settings'))
 				return <Settings users={users} showModal={showModal} hideModal={hideModal} />;

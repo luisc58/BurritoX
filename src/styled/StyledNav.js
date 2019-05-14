@@ -33,7 +33,7 @@ span {
       display: none;
       position: absolute;
       background-color: #f9f9f9;
-      min-width: 150px;
+      min-width: 200px;
       padding: 10px;
       z-index: 1;
       transition: 0.8s;

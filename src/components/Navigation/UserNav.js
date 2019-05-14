@@ -17,6 +17,7 @@ const UserNav = () => {
 						<a href="/selling">Selling</a>
 						<a href="/account">Account</a>
 						<a href="/complaints">Complaints</a>
+						<a href="/transactions">Transaction History</a>
 						<a href="/settings">Settings</a>
 						<a onClick={() => localStorage.removeItem('persist:root')} href="/login">
 							Sign Out

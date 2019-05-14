@@ -3,7 +3,6 @@ import Styled from 'styled-components';
 import { MenuItem } from './MenuItem';
 import { ComplaintItem } from './ComplaintItem';
 import { Complaint } from './Complaint';
- 
 
 const StyledMain = Styled.div`
     display: grid;
@@ -112,9 +111,9 @@ class Complains extends React.Component {
 
         if (selectedComplaintItem != null) {
             const selectedComplaint = complaints[selectedComplaintItem];
-            return <Complaint 
+            return <Complaint
                         subject={selectedComplaint.subject}
-                        content={selectedComplaint.content} 
+                        content={selectedComplaint.content}
                         action={this.handleSubmit} />;
         } else {
             return (
