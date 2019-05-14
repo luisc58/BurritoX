@@ -45,3 +45,14 @@ export function getAllStates() {
 
 	return states;
 }
+
+// format timestamp
+export function formatDate(timestamp) {
+	const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"];
+	let date = new Date(timestamp);
+	let month = months[date.getMonth()],
+		day = date.getDate(),
+		year = date.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+}
