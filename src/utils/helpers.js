@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import taxRates from './taxRates.json';
 
 const reactToastifyDefaultOptions = {
 	autoClose: 2000,
@@ -17,4 +18,19 @@ export function taboo(title, desc) {
 	var newTitle = title.replace(regx, '****');
 	var newDesc = desc.replace(regx, '****');
 	return { newTitle, newDesc };
+}
+
+// compute sale tax
+export function calculateTax(purchaseAmount, state) {
+	let taxRate,
+		tax;
+
+	if (taxRates[state]) {
+		taxRate = taxRates[state].taxRate;
+		tax = purchaseAmount * (taxRate / 100);
+	} else {
+		tax = null;
+	}
+
+	return tax;
 }
