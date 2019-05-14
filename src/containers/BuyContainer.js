@@ -30,7 +30,7 @@ class BuyContainer extends Component {
 const mapStateToProps = (state) => {
 	return {
 		form: state.modals.modal.data.form,
-		asks: Object.values(state.items[state.selectedItem].aks),
+		asks: Object.values(state.items[state.selectedItem].asks),
 		isSellActive: state.pricing.isSellActive
 	};
 };
