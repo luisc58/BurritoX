@@ -40,11 +40,11 @@ const isLink = (link) => {
 
 class UserContainer extends React.Component {
 	render() {
-		const { users, setUserPage, showModal, hideModal } = this.props;
-
+		const { users, items, setUserPage, showModal, hideModal } = this.props;
+		let selling = users.transactions != null ? Object.values(users.transactions.selling) : [];
 		const currentPage = (page) => {
 			if (page === 'BUYING' || isLink('/buying')) return <Buying />;
-			if (page === 'SELLING' || isLink('/selling')) return <Selling />;
+			if (page === 'SELLING' || isLink('/selling')) return <Selling selling={selling} items={items} />;
 			if (page === 'ACCOUNT' || isLink('/account')) return <Account />;
 			if (page === 'SETTINGS' || isLink('/settings'))
 				return <Settings users={users} showModal={showModal} hideModal={hideModal} />;

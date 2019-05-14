@@ -17,4 +17,5 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 export const SET_MODAL_ITEM = 'SET_MODAL_ITEM';
 export const SHOW_TOAST = 'SHOW_TOAST';
 export const FETCH_USERS = 'FETCH_USERS';
+export const FETCH_TABOO = 'FETCH_TABOO';
 export const SET_FRIENDS = 'SET_FRIENDS';

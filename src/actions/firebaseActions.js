@@ -94,3 +94,12 @@ export const fetchUsers = (currentUserId) => async (dispatch) => {
 		}
 	});
 };
+
+export const fetchTaboo = () => async (dispatch) => {
+	firebaseDb.ref('taboo').on('value', (snap) => {
+		dispatch({
+			type: 'FETCH_TABOO',
+			payload: { ...snap.val() }
+		});
+	});
+};

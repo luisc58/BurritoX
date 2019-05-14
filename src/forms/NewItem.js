@@ -19,6 +19,8 @@ class NewItem extends React.Component {
 		poster: '',
 		description: '',
 		category: '',
+		seller: this.props.user.id,
+		price: '',
 		verified: false
 	};
 
@@ -29,7 +31,7 @@ class NewItem extends React.Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
-		this.props.createItem({ ...this.state }).then(() => {
+		this.props.createItem({ ...this.state }, this.props.user.id).then(() => {
 			this.props.close();
 			this.props.showToast('success', 'Item created');
 		});
@@ -67,8 +69,19 @@ class NewItem extends React.Component {
 							<input
 								type="text"
 								name="description"
-								placeholder="Add a secription"
+								placeholder="Add a decription"
 								value={this.state.description}
+								required
+								onChange={this.handleChange}
+							/>
+						</label>
+						<label htmlFor="text">
+							Asking Price
+							<input
+								type="number"
+								name="price"
+								placeholder="How much are you asking for?"
+								value={this.state.price}
 								required
 								onChange={this.handleChange}
 							/>

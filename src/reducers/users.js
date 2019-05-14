@@ -8,6 +8,14 @@ export default handleActions(
 			// window.location.href = '/';
 			return action.payload;
 		},
+		['REFRESH_SELLING']: (state, action) => {
+			return {
+				...state,
+				transactions: {
+					selling: action.payload
+				}
+			};
+		},
 		[SET_USER_PAGE]: (state, action) => {
 			return {
 				...state,

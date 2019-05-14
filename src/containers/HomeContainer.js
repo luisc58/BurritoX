@@ -4,7 +4,7 @@ import { setSearchResults, setCategory } from '../actions/itemActions';
 import { setSuperView } from '../actions/userActions';
 import { showModal } from '../actions/modalActions';
 import { getAllItems, getItem, deleteItem, approveItem } from '../actions/firebaseItemActions';
-import { fetchUsers, approveUser } from '../actions/firebaseActions';
+import { fetchUsers, approveUser, fetchTaboo } from '../actions/firebaseActions';
 import Home from '../components/Home';
 import Super from '../components/Super';
 import { GET_ITEMS } from '../constants/labels';
@@ -39,7 +39,8 @@ const mapStateToProps = (state) => {
 		userType,
 		id,
 		superView: state.users.currentView,
-		users: Object.values(state.superUser.users)
+		users: Object.values(state.superUser.users),
+		tabooList: Object.values(state.superUser.tabooList)
 	};
 };
 
@@ -57,9 +58,11 @@ const HomeContainer = (props) => {
 				setView={props.setSuperView}
 				superView={props.superView}
 				fetchUsers={props.fetchUsers}
+				fetchTaboo={props.fetchTaboo}
 				userId={props.id}
 				approveItem={props.approveItem}
 				approveUser={props.approveUser}
+				tabooList={props.tabooList}
 			/>
 		);
 	}
@@ -75,6 +78,7 @@ export default connect(mapStateToProps, {
 	getItem,
 	setSuperView,
 	fetchUsers,
+	fetchTaboo,
 	approveItem,
 	approveUser
 })(HomeContainer);

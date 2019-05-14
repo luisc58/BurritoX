@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
 import { taboo } from '../../utils/helpers';
-import { approveUser } from '../../actions/firebaseActions';
+import { approveUser, fetchTaboo } from '../../actions/firebaseActions';
 import { Bar } from 'react-chartjs-2';
 
 const StyledContainer = Styled.div`
     margin: auto 3rem;
-    max-width: ${(props) => props.theme.max_width};
+	max-width: ${(props) => props.theme.max_width};
+	
+	.add { background-color: green; margin-top: 1rem; margin-left: 12px; color: white; padding: 13px;}
 `;
 
 const StyledItem = Styled.div`
@@ -57,9 +59,10 @@ class index extends Component {
 		let displayView = (view) => {
 			if (view === 'users') return <Users {...this.props} />;
 			if (view === 'items') return <Items {...this.props} />;
-			if (view === 'pending_items') return <PendingItems items={pendingItems} approveItem={approveItem} />;
+			if (view === 'pending_items')
+				return <PendingItems items={pendingItems} list={this.props.tabooList} approveItem={approveItem} />;
 			if (view === 'transactions') return <Transactions />;
-			if (view === 'taboo') return displayTaboo();
+			if (view === 'taboo') return <Taboo list={this.props.tabooList} fetchTaboo={this.props.fetchTaboo} />;
 		};
 		return (
 			<StyledContainer>
@@ -79,7 +82,7 @@ class index extends Component {
 class Transactions extends Component {
 	render() {
 		const data = {
-			labels: [ 'January', 'February', 'March', 'April', 'May', 'June', 'July' ],
+			labels: [ 'February', 'March', 'April', 'May' ],
 			datasets: [
 				{
 					label: 'Number of sales',
@@ -88,7 +91,7 @@ class Transactions extends Component {
 					borderWidth: 1,
 					hoverBackgroundColor: 'rgba(255,99,132,0.4)',
 					hoverBorderColor: 'rgba(255,99,132,1)',
-					data: [ 65, 59, 80, 81, 56, 55, 40, 10 ]
+					data: [ 6, 59, 80, 81, 56 ]
 				}
 			]
 		};
@@ -150,12 +153,13 @@ class PendingItems extends Component {
 				{items.map((item) => {
 					let name = item.name;
 					let description = item.description;
-					let words = taboo(name, description);
+					let words = taboo(name, description, this.props.list);
 					return (
 						<StyledItem key={item.id}>
 							<img src={item.poster} alt={item.name} />
 							<div className="info">
 								<span>{words.newTitle}</span>
+								<p>${item.price}</p>
 								<p>{words.newDesc}</p>
 								<span>{item.category}</span>
 							</div>
@@ -174,19 +178,25 @@ class PendingItems extends Component {
 		);
 	}
 }
-function displayTaboo() {
-	let list = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday' ];
-	return (
-		<StyledContainer>
-			{list.map((word) => {
-				return (
-					<StyledItem>
-						<h1>{word}</h1>
-					</StyledItem>
-				);
-			})}
-		</StyledContainer>
-	);
+
+class Taboo extends Component {
+	componentDidMount() {
+		this.props.fetchTaboo();
+	}
+	render() {
+		return (
+			<StyledContainer>
+				<button className="add">Add new word</button>
+				{this.props.list.map((word) => {
+					return (
+						<StyledItem>
+							<h1>{word}</h1>
+						</StyledItem>
+					);
+				})}
+			</StyledContainer>
+		);
+	}
 }
 
 class Items extends Component {
@@ -203,6 +213,7 @@ class Items extends Component {
 							<img src={item.poster} alt={item.name} />
 							<div className="info">
 								<span>{item.name}</span>
+								<p>${item.price}</p>
 								<p>{item.description}</p>
 								<span>{item.category}</span>
 								<div className="actions">

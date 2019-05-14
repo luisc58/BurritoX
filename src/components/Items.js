@@ -25,7 +25,7 @@ class Items extends Component {
 	itemsToDisplay(item) {
 		let itemJSX = (
 			<StyledItemLink href={`/items/${item.id}`} key={item.id}>
-				<Item key={item.id} name={item.name} poster={item.poster} />
+				<Item key={item.id} name={item.name} poster={item.poster} price={item.price} />
 			</StyledItemLink>
 		);
 		// mispelled categoty in JSON // fix
