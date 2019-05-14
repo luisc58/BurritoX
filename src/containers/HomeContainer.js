@@ -63,6 +63,7 @@ const HomeContainer = (props) => {
 				approveItem={props.approveItem}
 				approveUser={props.approveUser}
 				tabooList={props.tabooList}
+				showModal={props.showModal}
 			/>
 		);
 	}

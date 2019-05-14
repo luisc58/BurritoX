@@ -22,9 +22,9 @@ let StyledContainer = Styled.div`
 	img { height: 18rem;}
 `;
 class BuyItem extends Component {
-	// handleClick = () => {
-	// 	this.props.showModal({})
-	// }
+	handleOnClick = () => {
+		this.props.showModal({ type: 'SHOW_RATING' });
+	};
 
 	render() {
 		const { data } = this.props;
@@ -43,7 +43,7 @@ class BuyItem extends Component {
 						<li>Tax+: ${tax}</li>
 					</ul>
 					<span>Total: ${total}</span>
-					<StyledFormButton> Confirm</StyledFormButton>
+					<StyledFormButton onClick={this.handleOnClick}> Confirm</StyledFormButton>
 				</div>
 			</StyledContainer>
 		);

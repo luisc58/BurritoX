@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Styled from 'styled-components';
 import { taboo } from '../../utils/helpers';
 import { approveUser, fetchTaboo } from '../../actions/firebaseActions';
+
 import { Bar } from 'react-chartjs-2';
 
 const StyledContainer = Styled.div`
@@ -54,7 +55,7 @@ const StyledToggle = Styled.div`
 
 class index extends Component {
 	render() {
-		const { setView, superView, pendingItems, approveItem } = this.props;
+		const { setView, superView, pendingItems, approveItem, showModal } = this.props;
 
 		let displayView = (view) => {
 			if (view === 'users') return <Users {...this.props} />;
@@ -62,7 +63,8 @@ class index extends Component {
 			if (view === 'pending_items')
 				return <PendingItems items={pendingItems} list={this.props.tabooList} approveItem={approveItem} />;
 			if (view === 'transactions') return <Transactions />;
-			if (view === 'taboo') return <Taboo list={this.props.tabooList} fetchTaboo={this.props.fetchTaboo} />;
+			if (view === 'taboo')
+				return <Taboo list={this.props.tabooList} fetchTaboo={this.props.fetchTaboo} showModal={showModal} />;
 		};
 		return (
 			<StyledContainer>
@@ -183,10 +185,16 @@ class Taboo extends Component {
 	componentDidMount() {
 		this.props.fetchTaboo();
 	}
+
+	handleClick = () => {
+		this.props.showModal({ type: 'ADD_WORD' });
+	};
 	render() {
 		return (
 			<StyledContainer>
-				<button className="add">Add new word</button>
+				<button className="add" onClick={this.handleClick}>
+					Add new word
+				</button>
 				{this.props.list.map((word) => {
 					return (
 						<StyledItem>

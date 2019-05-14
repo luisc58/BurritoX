@@ -24,6 +24,8 @@ import EditItem from '../forms/EditItem';
 import PasswordReset from '../forms/PasswordReset';
 import ItemAsks from '../components/ItemAsks';
 import Buyitem from '../components/BuyItem';
+import TabooWord from '../components/TabooWord';
+import Rating from '../components/Rating';
 // container
 import BuyContainer from '../containers/BuyContainer';
 
@@ -64,6 +66,10 @@ const ModalContainer = ({ modal, updateProfileInfo, hideModal, postItem, getItem
 			return <ModalType modal={<EditItem close={hideModal} />} onClose={hideModal} />;
 		case 'BUY_ITEM':
 			return <ModalType modal={<Buyitem />} onClose={hideModal} />;
+		case 'ADD_WORD':
+			return <ModalType modal={<TabooWord />} onClose={hideModal} />;
+		case 'SHOW_RATING':
+			return <ModalType modal={<Rating />} onClose={hideModal} />;
 		default:
 			return;
 	}

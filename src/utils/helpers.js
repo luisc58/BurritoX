@@ -32,7 +32,7 @@ export function calculateTax(purchaseAmount, state) {
 
 	if (taxRates[state]) {
 		taxRate = taxRates[state].taxRate;
-		tax = purchaseAmount * (taxRate / 100);
+		tax = Math.round(purchaseAmount * (taxRate / 100) * 100) / 100;
 	} else {
 		tax = null;
 	}

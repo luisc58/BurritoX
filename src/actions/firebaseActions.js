@@ -95,6 +95,18 @@ export const fetchUsers = (currentUserId) => async (dispatch) => {
 	});
 };
 
+export const createTaboo = (word) => async (dispatch) => {
+	let ref = firebaseDb.ref('taboo');
+	ref.on('value', (snap) => {
+		let key = Object.keys(snap.val()).length + 1;
+		ref.update({ [key]: word });
+		dispatch({
+			type: 'SHOW_TOAST',
+			payload: { type: 'success', message: 'Word added' }
+		});
+	});
+};
+
 export const fetchTaboo = () => async (dispatch) => {
 	firebaseDb.ref('taboo').on('value', (snap) => {
 		dispatch({

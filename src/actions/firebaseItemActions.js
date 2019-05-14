@@ -1,5 +1,4 @@
 import FirebaseTools, { firebaseDb } from '../utils/firebase';
-import { REFUSED } from 'dns';
 
 const SET_ITEMS = 'SET_ITEMS';
 
