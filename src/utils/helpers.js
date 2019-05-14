@@ -37,7 +37,7 @@ export function calculateTax(purchaseAmount, state) {
 		tax = null;
 	}
 
-	return tax;
+	return tax.toFixed(2);
 }
 
 // get object containing all US states
