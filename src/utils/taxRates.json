@@ -1,0 +1,206 @@
+{
+    "Alabama": {
+        "abbreviation": "AL",
+        "taxRate": 9.10
+    },
+    "Alaska": {
+        "abbreviation": "AK",
+        "taxRate": 1.76
+    },
+    "Arizona": {
+        "abbreviation": "AZ",
+        "taxRate": 8.33
+    },
+    "Arkansas": {
+        "abbreviation": "AR",
+        "taxRate": 9.41
+    },
+    "California": {
+        "abbreviation": "CA",
+        "taxRate": 8.54
+    },
+    "Colorado": {
+        "abbreviation": "CO",
+        "taxRate": 7.52
+    },
+    "Connecticut": {
+        "abbreviation": "CT",
+        "taxRate": 6.35
+    },
+    "Delaware": {
+        "abbreviation": "DE",
+        "taxRate": 0.00
+    },
+    "District Of Columbia": {
+        "abbreviation": "DC",
+        "taxRate": 5.75
+    },
+    "Florida": {
+        "abbreviation": "FL",
+        "taxRate": 6.80
+    },
+    "Georgia": {
+        "abbreviation": "GA",
+        "taxRate": 7.15
+    },
+    "Hawaii": {
+        "abbreviation": "HI",
+        "taxRate": 4.35
+    },
+    "Idaho": {
+        "abbreviation": "ID",
+        "taxRate": 6.03
+    },
+    "Illinois": {
+        "abbreviation": "IL",
+        "taxRate": 8.70
+    },
+    "Indiana": {
+        "abbreviation": "IN",
+        "taxRate": 7.00
+    },
+    "Iowa": {
+        "abbreviation": "IA",
+        "taxRate": 6.80
+    },
+    "Kansas": {
+        "abbreviation": "KS",
+        "taxRate": 8.68
+    },
+    "Kentucky": {
+        "abbreviation": "KY",
+        "taxRate": 6.00
+    },
+    "Louisiana": {
+        "abbreviation": "LA",
+        "taxRate": 10.02
+    },
+    "Maine": {
+        "abbreviation": "ME",
+        "taxRate": 5.50
+    },
+    "Maryland": {
+        "abbreviation": "MD",
+        "taxRate": 6.00
+    },
+    "Massachusetts": {
+        "abbreviation": "MA",
+        "taxRate": 6.25
+    },
+    "Michigan": {
+        "abbreviation": "MI",
+        "taxRate": 6.00
+    },
+    "Minnesota": {
+        "abbreviation": "MN",
+        "taxRate": 7.42
+    },
+    "Mississippi": {
+        "abbreviation": "MS",
+        "taxRate": 7.07
+    },
+    "Missouri": {
+        "abbreviation": "MO",
+        "taxRate": 8.03
+    },
+    "Montana": {
+        "abbreviation": "MT",
+        "taxRate": 0.00
+    },
+    "Nebraska": {
+        "abbreviation": "NE",
+        "taxRate": 6.89
+    },
+    "Nevada": {
+        "abbreviation": "NV",
+        "taxRate": 8.14
+    },
+    "New Hampshire": {
+        "abbreviation": "NH",
+        "taxRate": 0.00
+    },
+    "New Jersey": {
+        "abbreviation": "NJ",
+        "taxRate": 6.60
+    },
+    "New Mexico": {
+        "abbreviation": "NM",
+        "taxRate": 7.66
+    },
+    "New York": {
+        "abbreviation": "NY",
+        "taxRate": 8.49
+    },
+    "North Carolina": {
+        "abbreviation": "NC",
+        "taxRate": 6.95
+    },
+    "North Dakota": {
+        "abbreviation": "ND",
+        "taxRate": 6.80
+    },
+    "Ohio": {
+        "abbreviation": "OH",
+        "taxRate": 7.15
+    },
+    "Oklahoma": {
+        "abbreviation": "OK",
+        "taxRate": 8.91
+    },
+    "Oregon": {
+        "abbreviation": "OR",
+        "taxRate": 0.00
+    },
+    "Pennsylvania": {
+        "abbreviation": "PA",
+        "taxRate": 6.34
+    },
+    "Rhode Island": {
+        "abbreviation": "RI",
+        "taxRate": 7.00
+    },
+    "South Carolina": {
+        "abbreviation": "SC",
+        "taxRate": 7.37
+    },
+    "South Dakota": {
+        "abbreviation": "SD",
+        "taxRate": 6.40
+    },
+    "Tennessee": {
+        "abbreviation": "TN",
+        "taxRate": 9.46
+    },
+    "Texas": {
+        "abbreviation": "TX",
+        "taxRate": 8.17
+    },
+    "Utah": {
+        "abbreviation": "UT",
+        "taxRate": 6.77
+    },
+    "Vermont": {
+        "abbreviation": "VT",
+        "taxRate": 6.18
+    },
+    "Virginia": {
+        "abbreviation": "VA",
+        "taxRate": 5.63
+    },
+    "Washington": {
+        "abbreviation": "WA",
+        "taxRate": 9.18
+    },
+    "West Virginia": {
+        "abbreviation": "WV",
+        "taxRate": 6.37
+    },
+    "Wisconsin": {
+        "abbreviation": "WI",
+        "taxRate": 5.42
+    },
+    "Wyoming": {
+        "abbreviation": "WY",
+        "taxRate": 5.46
+    }
+}
