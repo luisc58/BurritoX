@@ -3,6 +3,8 @@ import Styled from 'styled-components';
 import { MenuItem } from './MenuItem';
 import { ComplaintItem } from './ComplaintItem';
 import { Complaint } from './Complaint';
+import SendComplaint from './SendComplaint';
+import axios from 'axios';
 
 const StyledMain = Styled.div`
     display: grid;
@@ -34,9 +36,11 @@ const StyledComplaintList = Styled.aside`
         border-bottom: 1px solid rgba(189,189,192,0.3);
         font-size: 1rem;
         color: black;
+        padding: 1.5rem 0 1.5rem 1rem;
     };
     p {
-        padding-left: 1.3rem;
+        margin: 0;
+        font-size: 1.2rem;
     }
 `;
 
@@ -53,65 +57,92 @@ const DismissMessage = Styled.div`
     };
 `;
 
-let complaints = {
-    "0": {
-        "author": "transmitter@gmail.com",
-        "subject": "Bad Sneakers",
-        "content": "Praesentium ex at et vel labore optio sed. Vitae in aut. Quia odio architecto mollitia error. Consectetur eum rerum enim deleniti ad ut sequi molestiae atque. Tempora maxime ipsum error. Sit assumenda quia. Rerum incidunt accusamus sed et a recusandae qui. Consequuntur id aliquam consequatur est voluptatem. Ut est architecto reiciendis dignissimos ut non sint consequatur enim. Doloribus voluptatem cum. Numquam voluptatem illum quis odio occaecati est autem quas reprehenderit. Consectetur optio iusto dicta doloremque non ut totam et. Et deleniti aliquam qui voluptas id id ut voluptas vitae.",
-        "explanation": ""
-    },
-    "1": {
-        "author": "hard_drive@gmail.com",
-        "subject": "Bad Hoodie",
-        "content": "Vero eum nesciunt fugit numquam laudantium. Est sed tempora eos animi. Eos et dolores. Vitae repudiandae qui dignissimos ut. Debitis non occaecati. Et molestiae illo minus. Unde animi tempora ipsum incidunt excepturi ea voluptatum. Est voluptas consequatur odit iusto inventore et non. Et debitis quae dolores amet minima est nihil aut. Neque rerum magnam voluptatem dolore. Et sit voluptate quo quo sed ut quisquam at corrupti. Reiciendis illum cumque voluptas qui quaerat in aut.",
-        "explanation": ""
-    }
-};
-
-class Complains extends React.Component {
+class Complaints extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedComplaintItem: null,
+            complaintsFetched: false,
+            complaints: null,
+            selectedComplaintItem: null
         };
         this.updateSelectedComplaintItem = this.updateSelectedComplaintItem.bind(this);
         this.renderSelectedComplaint = this.renderSelectedComplaint.bind(this);
+    }
+
+    fetchComplaints() {
+        const { complaintsFetched } = this.state;
+
+        if (!complaintsFetched) {
+            axios
+                .get("http://localhost:8000/api/vicalpa5@hotmail.com/complaints")
+                .then(res => {
+                    this.setState({
+                        complaintsFetched: true,
+                        complaints: res.data
+                    });
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+                .finally(() => {
+
+                });
+        }
     }
 
     updateSelectedComplaintItem(id) {
         this.setState({ selectedComplaintItem: id });
     }
 
-    renderComplaintItems(complaints) {
+    renderComplaintItems() {
+        this.fetchComplaints();
+        const { complaints } = this.state;
         let complaintList = [];
-        for (let i in complaints) {
-            complaintList.push(
-                <ComplaintItem
-                    key={'item-' + i}
-                    data={{
-                        id: i,
-                        author: complaints[i].author,
-                        subject: complaints[i].subject,
-                        content: complaints[i].content
-                    }}
-                    action={this.updateSelectedComplaintItem}
-                />
-            );
+
+        if (complaints) {
+            for (let i in this.state.complaints) {
+                complaintList.push(
+                    <ComplaintItem
+                        key={'item-' + i}
+                        data={{
+                            id: i,
+                            author: complaints[i].author,
+                            subject: complaints[i].subject,
+                            content: complaints[i].content
+                        }}
+                        action={this.updateSelectedComplaintItem}
+                    />
+                );
+            }
+
         }
 
         return complaintList;
     }
 
-    handleSubmit(explanation) {
-        // handle this
+    handleSubmit(data) {
+        axios
+            .post('http://localhost:8000/api/complaint/respond', {
+                user: data.user,
+                complaint: data.complaint,
+                response: data.explanation
+            })
+            .then(function(res) {
+                console.log(res)
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
     }
 
-    renderSelectedComplaint(complaints) {
-        const { selectedComplaintItem } = this.state;
+    renderSelectedComplaint() {
+        const { selectedComplaintItem, complaints } = this.state;
+
 
         if (selectedComplaintItem != null) {
             const selectedComplaint = complaints[selectedComplaintItem];
             return <Complaint
+                        complaintId={selectedComplaintItem}
                         subject={selectedComplaint.subject}
                         content={selectedComplaint.content}
                         action={this.handleSubmit} />;
@@ -125,19 +156,19 @@ class Complains extends React.Component {
     }
 
     render() {
+
         return (
             <StyledMain>
                 <StyledSideMenu>
                     <MenuItem name="Inbox" />
-                    <MenuItem name="Send Complaint" />
                 </StyledSideMenu>
                 <StyledComplaintList>
-                    {this.renderComplaintItems(complaints)}
+                    {this.renderComplaintItems()}
                 </StyledComplaintList>
-                {this.renderSelectedComplaint(complaints)}
+                {this.renderSelectedComplaint()}
             </StyledMain>
         );
     }
 }
 
-export default Complains;
+export default Complaints;
