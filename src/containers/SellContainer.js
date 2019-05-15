@@ -37,8 +37,10 @@ function getHighestBid(bids) {
 
 	return false;
 }
+
 const mapStateToProps = (state) => {
-	let highestBid = getHighestBid(state.items[state.pricing.selectedOption].bids);
+	let bids = state.items[state.pricing.selectedOption];
+	let highestBid = getHighestBid(bids);
 	let items = Object.values(state.items);
 
 	let selectedOption = state.pricing.selectedOption;
