@@ -4,7 +4,7 @@ const StyledHeader = Styled.header`
 	text-align: center;
 	background: black;
 	color: white;
-	height: 35vh;
+	height: 45vh;
 	padding-top: 3.5rem;
 	.sub-menu {
 		padding-top: 7rem;

@@ -52,7 +52,7 @@ export const updateProfileInfo = (uid, username, email) => async (dispatch) => {
 		.then(() => {
 			firebaseDb.ref(`users/${uid}`).on('value', (snap) => {
 				dispatch({
-					type: 'SET_USER',
+					type: 'UPDATE_USER',
 					payload: { uid, ...snap.val() }
 				});
 			});
@@ -73,7 +73,7 @@ export const updateAccountInfo = (uid, path, data) => async (dispatch) => {
 	firebaseDb.ref(`users/${uid}/${path}`).set({ ...data }).then(() => {
 		firebaseDb.ref(`users/${uid}`).on('value', (snap) => {
 			dispatch({
-				type: 'SET_USER',
+				type: 'UPDATE_USER',
 				payload: { uid, ...snap.val() }
 			});
 		});
@@ -98,12 +98,12 @@ export const fetchUsers = (currentUserId) => async (dispatch) => {
 export const createTaboo = (word) => async (dispatch) => {
 	let ref = firebaseDb.ref('taboo');
 	ref.on('value', (snap) => {
-		let key = Object.keys(snap.val()).length + 1;
+		let key = snap.val().length;
 		ref.update({ [key]: word });
-		dispatch({
-			type: 'SHOW_TOAST',
-			payload: { type: 'success', message: 'Word added' }
-		});
+		// dispatch({
+		// 	type: 'SHOW_TOAST',
+		// 	payload: { type: 'success', message: 'Word added' }
+		// });
 	});
 };
 

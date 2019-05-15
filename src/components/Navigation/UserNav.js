@@ -15,7 +15,7 @@ const UserNav = () => {
 						<a href="/friends">Friends</a>
 						<a href="/buying">Buying</a>
 						<a href="/selling">Selling</a>
-						<a href="/account">Account</a>
+						<a href="/account">Profile</a>
 						<a href="/complaints">Complaints</a>
 						<a href="/transactions">Transaction History</a>
 						<a href="/settings">Settings</a>

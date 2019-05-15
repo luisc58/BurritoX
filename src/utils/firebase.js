@@ -62,7 +62,8 @@ const FirebaseTools = {
 				username: user.username,
 				email: user.email,
 				role: user.role,
-				verified: false
+				verified: false,
+				sellerType: 'Novice'
 			})
 			.then(() => {
 				window.location.href = '/login';

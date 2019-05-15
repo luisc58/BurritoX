@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Styled from 'styled-components';
 import { taboo } from '../../utils/helpers';
-import { approveUser, fetchTaboo } from '../../actions/firebaseActions';
-
 import { Bar } from 'react-chartjs-2';
 
 const StyledContainer = Styled.div`
@@ -54,10 +52,13 @@ const StyledToggle = Styled.div`
 `;
 
 class index extends Component {
+	componentDidMount() {
+		this.props.fetchTaboo();
+	}
 	render() {
 		const { setView, superView, pendingItems, approveItem, showModal } = this.props;
 
-		let displayView = (view) => {
+		let displayView = (view = 'items') => {
 			if (view === 'users') return <Users {...this.props} />;
 			if (view === 'items') return <Items {...this.props} />;
 			if (view === 'pending_items')

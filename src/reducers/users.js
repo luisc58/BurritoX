@@ -5,8 +5,14 @@ import { SET_USER, SET_USER_PAGE, SET_SUPER_VIEW } from '../constants/actionType
 export default handleActions(
 	{
 		[SET_USER]: (state, action) => {
-			// window.location.href = '/';
+			window.location.href = '/';
 			return action.payload;
+		},
+		['UPDATE_SHIPPING']: (state, action) => {
+			return {
+				...state,
+				shippingInfo: action.payload
+			};
 		},
 		['REFRESH_SELLING']: (state, action) => {
 			return {

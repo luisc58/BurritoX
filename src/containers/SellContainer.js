@@ -30,9 +30,17 @@ const StyledFormContainer = Styled.div`
     background: white;
 `;
 //////////
+function getHighestBid(bids) {
+	if (bids != null) {
+		return Object.values(bids)[0].bid;
+	}
 
+	return false;
+}
 const mapStateToProps = (state) => {
+	let highestBid = getHighestBid(state.items[state.pricing.selectedOption].bids);
 	let items = Object.values(state.items);
+
 	let selectedOption = state.pricing.selectedOption;
 	let options = items.filter((item) => item.verified === true).map((item) => ({
 		name: item.name,
@@ -43,6 +51,7 @@ const mapStateToProps = (state) => {
 		options,
 		item,
 		selectedOption,
+		highestBid,
 		isSellActive: state.pricing.isSellActive
 	};
 };

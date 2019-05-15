@@ -33,6 +33,29 @@ export const createItem = (item, uid) => async (dispatch) => {
 		});
 };
 
+export const bidOnItem = (bid, bidder_id, item_id) => (dispatch) => {
+	let ref = firebaseDb.ref(`items/${item_id}/bids`);
+	let items_ref = firebaseDb.ref(`items`);
+	let key = ref.push().key;
+	ref
+		.child(bidder_id)
+		.update({ bid_id: key, bid, bidder_id })
+		.then(() => {
+			items_ref.on('value', (snap) => {
+				dispatch({
+					type: SET_ITEMS,
+					payload: { ...snap.val() }
+				});
+			});
+		})
+		.then(() => {
+			dispatch({
+				type: 'SHOW_TOAST',
+				payload: { type: 'success', message: 'You have successfully bidded' }
+			});
+		});
+};
+
 export const trackSellingTransaction = (itemId) => async (dispatch) => {};
 
 export const approveItem = (uid) => async (dispatch) => {

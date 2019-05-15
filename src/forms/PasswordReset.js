@@ -5,7 +5,7 @@ import Form from '../styled/Form';
 import { StyledFormButton } from '../styled/Form';
 import { resetPassword } from '../actions/firebaseActions';
 import { showToast } from '../actions/toastActions';
-import { hideModal } from '../actions/modalActions';
+
 const StyledContainer = Styled.div`
     background: white;
     padding: 2.5rem;

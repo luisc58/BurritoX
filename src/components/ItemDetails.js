@@ -15,9 +15,8 @@ class ItemDetails extends React.Component {
 			poster: '',
 			seller: '',
 			rating: '',
-			market: {
-				highestBid: '',
-				lowestAsk: ''
+			selectedItem: {
+				asks: {}
 			},
 			description: ''
 		}
@@ -29,17 +28,25 @@ class ItemDetails extends React.Component {
 	}
 
 	render() {
-		const { name, poster, seller, price, description } = this.props.selectedItem;
+		const { name, poster, asks, bids, price, description } = this.props.selectedItem;
 
+		function getHighestBid() {
+			if (bids != null) {
+				return `$${Object.values(bids)[0].bid}`;
+			}
+			return 'No bids';
+		}
+
+		let highestBid = getHighestBid();
 		return (
 			<StyledItemDetails>
 				<StyledItemName bigFont>{name}</StyledItemName>
 				<ul className="a">
 					<li>
-						Seller: <span>{`${seller}`}</span>
+						Price: <span>{`$${price}`}</span>
 					</li>
 					<li>
-						Price: <span>{`$${price}`}</span>
+						Highest Bid: <span>{`${highestBid}`}</span>
 					</li>
 				</ul>
 				<StyledItemButton

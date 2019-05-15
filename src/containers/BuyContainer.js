@@ -21,7 +21,7 @@ class BuyContainer extends Component {
 			<StyledContainer>
 				<PillToggle rightName="Buy Now" leftName="Bid Now" {...this.props} />
 
-				{form === 'bid' || isSellActive ? <BidForm /> : <BuyForm asks={asks} />}
+				{form === 'bid' || isSellActive ? <BidForm close={this.props.close} /> : <BuyForm asks={asks} />}
 			</StyledContainer>
 		);
 	}

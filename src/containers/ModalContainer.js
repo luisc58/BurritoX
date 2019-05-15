@@ -58,7 +58,7 @@ const ModalContainer = ({
 		case NEW_ITEM:
 			return <ModalType modal={<NewItem onSubmit={handleSubmit} close={hideModal} />} onClose={hideModal} />;
 		case BUY_BID_ITEM:
-			return <ModalType modal={<BuyContainer onSubmit={handleSubmit} />} onClose={hideModal} />;
+			return <ModalType modal={<BuyContainer onSubmit={handleSubmit} close={hideModal} />} onClose={hideModal} />;
 		case VIEW_ASKS:
 			return (
 				<ModalType

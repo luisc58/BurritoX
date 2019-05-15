@@ -24,7 +24,7 @@ function Item(data) {
 		<tr key={data.id}>
 			<th>{data.name}</th>
 			<th>{data.price}</th>
-			<th>{data.bid != null ? data.bid : 'No bids'}</th>
+			<th>{data.bids != null ? Object.values(data.bids)[0].bid : 'No bids'}</th>
 			<th>{data.verified == true ? '✅' : '❌'}</th>
 		</tr>
 	);

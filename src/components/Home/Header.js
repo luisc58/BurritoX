@@ -3,7 +3,14 @@ import StyledSearch, { StyledSearchResults } from '../../styled/StyledSearch';
 import StyledHeader from '../../styled/StyledHeader';
 import SearchItem from '../SearchItem';
 import { StyledItemLink } from '../../styled/StyledItem';
-/// TODO Put in its own file
+import Styled from 'styled-components';
+
+const StyledTitle = Styled.div`
+	span { font-size: 1.2rem; color: ${(props) => props.theme.green}; font-weight: 500;}
+	margin: 0 20rem;
+	padding: 10px 0;
+	h1 { font-size: 3rem}
+`;
 
 // Search will search trhough our items state -- no need to fetch
 function findMatches(wordToMatch, items) {
@@ -28,6 +35,10 @@ class Search extends React.Component {
 	render() {
 		return (
 			<React.Fragment>
+				<StyledTitle>
+					<span> • The AmazonEbay • </span>
+					<h1>BUY AND SELL ANYTHING</h1>
+				</StyledTitle>
 				<StyledSearch>
 					<div className="a">
 						<input

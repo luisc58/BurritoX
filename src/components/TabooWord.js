@@ -21,6 +21,7 @@ class TabooWord extends Component {
 
 	handleSubmit = (e) => {
 		e.preventDefault();
+		this.props.createTaboo(this.state.word);
 	};
 	handleS;
 	render() {
@@ -40,4 +41,4 @@ class TabooWord extends Component {
 	}
 }
 
-export default connect({ createTaboo })(TabooWord);
+export default connect((state) => ({}), { createTaboo })(TabooWord);

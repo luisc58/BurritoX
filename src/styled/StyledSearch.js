@@ -11,6 +11,8 @@ const StyledSearch = Styled.div`
 		width: 50%;
   		margin: 0 auto;
 	}
+
+	
 `;
 
 export const StyledSearchResults = Styled.div`
