@@ -39,7 +39,7 @@ nmp start
 ## Authors
 * Victor Alvarez Pajaro
 * Luis Castillo
-* Yorli Chidary
+* Yorli Chazari
 * Christian Suleiman
 ## License
 MIT License
