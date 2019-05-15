@@ -4,15 +4,14 @@ import Styled from 'styled-components';
 
 const FormContainer = Styled.div`margin: 0; padding: 3rem`;
 
-
 const styles = {
     messageDiv: {
         padding: "3rem",
-        fontSize: "1rem",
+        fontSize: "1.2rem",
         borderBottom: "1px solid rgba(189, 189, 192, 0.3)"
     },
     contentDiv: {
-        height: "500px"   
+        height: "500px"
     }
 }
 
@@ -23,7 +22,12 @@ export class Complaint extends React.Component {
     }
 
     handleSubmit(e) {
-        this.props.action(this.refs.explanation.value);
+        const data = {
+            user: 'vicalpa5@hotmail.com',
+            complaint: this.props.complaintId,
+            explanation: this.refs.explanation.value
+        };
+        this.props.action(data);
     }
 
     render() {
@@ -36,7 +40,7 @@ export class Complaint extends React.Component {
                     <p>{ content }</p>
                 </div>
                 <FormContainer>
-                    <Form data-test="form" onSubmit={this.handleClick}>
+                    <Form data-test="form" onSubmit={this.handleSubmit}>
                         <fieldset>
                             <label htmlFor="text">
                                 <input

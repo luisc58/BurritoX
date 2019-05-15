@@ -3,7 +3,7 @@ import React from 'react';
 const black         =   'rgba(0,0,0,1)',
       white         =   'rgba(255,255,255,1)',
       unselected    =   'rgba(139,139,139,0)',
-      selected      =   'rgba(113,113,113,0.4)'; 
+      selected      =   'rgba(113,113,113,0.4)';
 
 export class MenuItem extends React.Component {
     constructor(props) {
@@ -25,9 +25,8 @@ export class MenuItem extends React.Component {
     }
 
     handleClick() {
-
     }
-   
+
     render() {
         const { color, backgroundColor } = this.state;
 

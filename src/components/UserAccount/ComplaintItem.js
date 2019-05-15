@@ -17,7 +17,7 @@ export class ComplaintItem extends React.Component {
 
         return (
             <div onClick={this.handleClick}>
-                <p>{ subject }</p>            
+                <p>{ subject }</p>
                 <p>{ author }</p>
             </div>
         );
