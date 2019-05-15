@@ -115,3 +115,10 @@ export const fetchTaboo = () => async (dispatch) => {
 		});
 	});
 };
+
+export const setUserRating = (rating, user_uid, grader_uid) => async (dispatch) => {
+	let ref = firebaseDb.ref(`users/${user_uid}/ratings/${grader_uid}`);
+	ref.update({ rating }).then(() => {
+		console.log('success');
+	});
+};

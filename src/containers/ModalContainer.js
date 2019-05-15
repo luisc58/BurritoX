@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { hideModal } from '../actions/modalActions';
 import { postItem, updateItem, getItem, getItemAsks, getItemBids } from '../actions/itemActions';
+import { setUserRating } from '../actions/firebaseActions';
 import { updateProfileInfo } from '../actions/firebaseActions';
 import ModalType from '../components/Modals/ModalType';
 import {
@@ -29,7 +30,17 @@ import Rating from '../components/Rating';
 // container
 import BuyContainer from '../containers/BuyContainer';
 
-const ModalContainer = ({ modal, updateProfileInfo, hideModal, postItem, getItemAsks, getItemBids }) => {
+const ModalContainer = ({
+	modal,
+	updateProfileInfo,
+	hideModal,
+	postItem,
+	getItemAsks,
+	getItemBids,
+	grader_id,
+	setUserRating,
+	item_owner_id
+}) => {
 	let handleSubmit = (values) => {
 		postItem(values);
 	};
@@ -69,15 +80,28 @@ const ModalContainer = ({ modal, updateProfileInfo, hideModal, postItem, getItem
 		case 'ADD_WORD':
 			return <ModalType modal={<TabooWord />} onClose={hideModal} />;
 		case 'SHOW_RATING':
-			return <ModalType modal={<Rating />} onClose={hideModal} />;
+			return (
+				<ModalType
+					modal={<Rating setUserRating={setUserRating} grader_id={grader_id} item_owner_id={item_owner_id} />}
+					onClose={hideModal}
+				/>
+			);
 		default:
 			return;
 	}
 };
 
 const mapStateToProps = (state) => {
+	function ownerId() {
+		if (state.items[state.selectedItem] == null) return [];
+		return Object.values(state.items[state.selectedItem].asks)[0].seller;
+	}
+
+	let item_owner_id = ownerId();
 	return {
-		modal: state.modals.modal
+		modal: state.modals.modal,
+		grader_id: state.users.id,
+		item_owner_id
 	};
 };
 
@@ -88,5 +112,6 @@ export default connect(mapStateToProps, {
 	getItem,
 	getItemAsks,
 	getItemBids,
-	updateProfileInfo
+	updateProfileInfo,
+	setUserRating
 })(ModalContainer);
