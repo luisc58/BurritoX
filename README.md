@@ -16,6 +16,9 @@ The following is a short list of the major functionalities of ordinary users and
 * Provide/recieve a rating after a transaction
 * Edit personal information and payment info
 ### Super User
+You may sign in as a super user using 
+Email: super@gmail.com
+password: super123
 * Approve/deny a user account
 * Remove an existing account
 * Approve/deny an item to be listed for sale
